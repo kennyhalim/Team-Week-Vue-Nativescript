@@ -1,31 +1,22 @@
 <template>
     <Page class="Page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
         <StackLayout row="1">
-            <Label text="BlaBla" textWrap="true" class="header"/>
+            <Label text="BlaBlaa" textWrap="true" class="header"/>
             <Button text="Login" class="login" @tap="$navigateTo(Login)"/>
-            <Button text="Signup" class="signup"/>
+            <Button text="Signup" class="signup" @tap="$navigateTo(Signup)"/>
         </StackLayout>
     </Page>
 </template>
 
 <script>
 import Login from './Login';
-    const login = {
-            template: `
-                <Frame>
-                    <Login />
-                </Frame>
-            `,
+import Signup from './Signup';
 
-            components: {
-                Login
-            }
-    }
-    
     export default {
         data() {
             return {
-                Login: Login
+                Login: Login,
+                Signup: Signup
             };
         }  
     }
@@ -35,7 +26,8 @@ import Login from './Login';
 <style scoped>
     Page {
         margin: 0;
-        background-image: url('~/images/bg.jpg');
+        /* background-image: url('~/images/bg.jpg'); */
+        background-color: aqua;
         background-repeat: no-repeat;
         height:100%;
     }

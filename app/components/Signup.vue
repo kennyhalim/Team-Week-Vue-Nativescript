@@ -1,7 +1,7 @@
 <template>
     <Page class="Page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
         <StackLayout class="container">
-            <Label text="Login" textWrap="true" class="header"/>
+            <Label text="Signup" textWrap="true" class="header"/>
             
             <FlexboxLayout alignItems="center" class="border-bottom">
               <TextField hint="Username" class="form-input" v-model="user.username"/>
@@ -10,7 +10,11 @@
             <FlexboxLayout alignItems="center" class="border-bottom">
               <TextField hint="Password" class="form-input" v-model="user.password"/>
             </FlexboxLayout>
-            <Button text="Login" class="login" @tap="submit"/>
+
+            <FlexboxLayout alignItems="center" class="border-bottom">
+              <TextField hint="Confirm Password" class="form-input" v-model="user.confirmPassword"/>
+            </FlexboxLayout>
+            <Button text="Signup" class="login" @tap="submit"/>
             <Button text="Back" class="back" @tap="$navigateBack"/>
         </StackLayout>
     </Page>
@@ -18,19 +22,20 @@
 
 <script>
 const userService = {
-  login(user) {
+  register(user) {
     return Promise.resolve(user);
   }
 };
 
-import SearchArea from './SearchArea';
-  
+import Login from './Login';
+
   export default {
       data() {
           return {
             user: {
               username:"foo",
-              password: "foo"
+              password: "foo",
+              confirmPassword: "foo"
             }
           };
       },
@@ -40,18 +45,25 @@ import SearchArea from './SearchArea';
             this.alert("Please provide both an email address and password.");
             return;
           }
-          this.login();
+          this.register();
         },
 
-        login() {
+        register() {
+          if (this.user.password != this.user.confirmPassword) {
+            this.alert("Your passwords do not match.");
+            return;
+          }
+
           userService
-            .login(this.user)
+            .register(this.user)
             .then(() => {
-              this.$navigateTo(SearchArea);
+              this.$navigateTo(Login);
+              this.alert("Account successfully created.");
+              
             })
             .catch(() => {
-              this.alert("Couldnt find account");
-            })
+              this.alert("Unable to create account");
+            });
         },
 
         alert(message) {
