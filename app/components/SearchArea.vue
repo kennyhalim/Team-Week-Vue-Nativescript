@@ -7,10 +7,12 @@
                 <StackLayout :visibility="currentGeoLocation.latitude ? 'visible' : 'collapsed'">
 
 
-                    <ListView class="list-group" v-for="user in users" style="height:1250px">
+                    <ListView class="list-group" v-for="user in users" v-bind:key="user" style="height:1250px">
                         <v-template>
                             <FlexboxLayout flexDirection="row" class="list-group-item">
-                                <Label :text="user.username + ' - ' + getDistanceAway(currentGeoLocation.latitude, currentGeoLocation.longitude, user.latitude, user.longitude) + ' miles away'" class="list-group-item-heading" style="width: 60%" />
+                                <Image :src="user.imageSrc" class="thumb img-circle" />
+                                <Label :text="user.username + ' - ' + getDistanceAway(currentGeoLocation.latitude, currentGeoLocation.longitude, user.latitude, user.longitude) + ' miles away.      ' + user.preferred_language"
+                                    class="list-group-item-heading" style="width: 80%" />
                             </FlexboxLayout>
                         </v-template>
                     </ListView>
@@ -84,7 +86,8 @@
                         password: "tanner",
                         preferred_language: "JavaScript",
                         latitude: 47.624456,
-                        longitude: -122.356755
+                        longitude: -122.356755,
+                        imageSrc: "https://www.shareicon.net/data/128x128/2016/09/01/822711_user_512x512.png"
                     },
                     {
                         id: 2,
@@ -92,15 +95,17 @@
                         password: "jimbo",
                         preferred_language: "Vue.js",
                         latitude: 47.571455,
-                        longitude: -122.37937
+                        longitude: -122.37937,
+                        imageSrc: "https://www.shareicon.net/data/128x128/2016/09/01/822720_user_512x512.png"
                     },
                     {
-                        id: 2,
+                        id: 3,
                         username: "Johnno",
                         password: "johnno",
                         preferred_language: "C#",
                         latitude: 47.636467,
-                        longitude: -122.316241
+                        longitude: -122.316241,
+                        imageSrc: "https://www.shareicon.net/data/128x128/2016/09/01/822745_user_512x512.png"
                     }
                 ],
                 currentGeoLocation: {
