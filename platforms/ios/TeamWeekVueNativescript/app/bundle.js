@@ -465,7 +465,7 @@ exports = module.exports = __webpack_require__("../node_modules/css-loader/lib/c
 
 
 // module
-exports.push([module.i, "\nPage[data-v-67410f3a] {\n    margin: 0;\n    /* background-image: url('~/images/bg.jpg'); */\n    background-color: aqua;\n    background-repeat: no-repeat;\n    height:100%;\n}\n.header[data-v-67410f3a] {\n    font-size: 70px;\n    text-align: center;\n    padding-top: 200;\n    padding-bottom: 50;\n}\n.login[data-v-67410f3a] {\n    background-color:cornflowerblue;\n    color: white;\n    height: 50;\n    width:60%;\n    font-size: 24px;\n    margin-bottom: 20;\n    border-radius: 10;\n}\n.signup[data-v-67410f3a] {\n    background-color:mediumseagreen;\n    color:white;\n    height: 50;\n    width: 60%;\n    font-size: 24px;\n    border-radius: 10;\n}\n", ""]);
+exports.push([module.i, "\nPage[data-v-67410f3a] {\n    margin: 0;\n    background-image: url('~/images/bg.jpg');\n    background-position: center;\n    background-size: cover;\n    background-repeat: no-repeat;\n    height:100%;\n}\n.header[data-v-67410f3a] {\n    font-size: 70px;\n    text-align: center;\n    padding-top: 200;\n    padding-bottom: 50;\n}\n.login[data-v-67410f3a] {\n    background-color:cornflowerblue;\n    color: white;\n    height: 50;\n    width:60%;\n    font-size: 24px;\n    margin-bottom: 20;\n    border-radius: 10;\n}\n.signup[data-v-67410f3a] {\n    background-color:mediumseagreen;\n    color:white;\n    height: 50;\n    width: 60%;\n    font-size: 24px;\n    border-radius: 10;\n}\n", ""]);
 
 // exports
 
@@ -589,7 +589,7 @@ var render = function() {
         [
           _c("Label", {
             staticClass: "header",
-            attrs: { text: "BlaBlaa", textWrap: "true" }
+            attrs: { text: "BlaBla", textWrap: "true" }
           }),
           _c("Button", {
             staticClass: "login",
@@ -1002,16 +1002,6 @@ __webpack_require__.r(__webpack_exports__);
         __webpack_require__("tns-core-modules/bundle-entry-points");
         
 
-
-var firebase = __webpack_require__("../node_modules/nativescript-plugin-firebase/firebase.js");
-
-firebase.init({// Optionally pass in properties for database, authentication and cloud messaging,
-  // see their respective docs.
-}).then(function (instance) {
-  console.log("firebase.init done");
-}, function (error) {
-  console.log("firebase.init error: " + error);
-});
 new nativescript_vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   template: "\n        <Frame>\n            <Home />\n        </Frame>",
   components: {
@@ -1330,20 +1320,6 @@ module.exports = require("tns-core-modules/application");
 
 /***/ }),
 
-/***/ "tns-core-modules/application-settings":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/application-settings");
-
-/***/ }),
-
-/***/ "tns-core-modules/application/application":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/application/application");
-
-/***/ }),
-
 /***/ "tns-core-modules/bundle-entry-points":
 /***/ (function(module, exports) {
 
@@ -1351,80 +1327,10 @@ module.exports = require("tns-core-modules/bundle-entry-points");
 
 /***/ }),
 
-/***/ "tns-core-modules/file-system":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/file-system");
-
-/***/ }),
-
-/***/ "tns-core-modules/image-source":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/image-source");
-
-/***/ }),
-
-/***/ "tns-core-modules/platform/platform":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/platform/platform");
-
-/***/ }),
-
-/***/ "tns-core-modules/ui/content-view":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/ui/content-view");
-
-/***/ }),
-
-/***/ "tns-core-modules/ui/core/properties":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/ui/core/properties");
-
-/***/ }),
-
-/***/ "tns-core-modules/ui/core/view-base":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/ui/core/view-base");
-
-/***/ }),
-
-/***/ "tns-core-modules/ui/dialogs":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/ui/dialogs");
-
-/***/ }),
-
-/***/ "tns-core-modules/ui/enums/enums":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/ui/enums/enums");
-
-/***/ }),
-
 /***/ "tns-core-modules/ui/styling/style-scope":
 /***/ (function(module, exports) {
 
 module.exports = require("tns-core-modules/ui/styling/style-scope");
-
-/***/ }),
-
-/***/ "tns-core-modules/utils/types":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/utils/types");
-
-/***/ }),
-
-/***/ "tns-core-modules/utils/utils":
-/***/ (function(module, exports) {
-
-module.exports = require("tns-core-modules/utils/utils");
 
 /***/ })
 

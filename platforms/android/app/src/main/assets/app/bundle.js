@@ -465,7 +465,7 @@ exports = module.exports = __webpack_require__("../node_modules/css-loader/lib/c
 
 
 // module
-exports.push([module.i, "\nPage[data-v-67410f3a] {\n    margin: 0;\n    background-image: url('~/images/bg.jpg');\n    \n    background-repeat: no-repeat;\n    height:100%;\n}\n.header[data-v-67410f3a] {\n    font-size: 70px;\n    text-align: center;\n    padding-top: 200;\n    padding-bottom: 50;\n}\n.login[data-v-67410f3a] {\n    background-color:cornflowerblue;\n    color: white;\n    height: 50;\n    width:60%;\n    font-size: 24px;\n    margin-bottom: 20;\n    border-radius: 10;\n}\n.signup[data-v-67410f3a] {\n    background-color:mediumseagreen;\n    color:white;\n    height: 50;\n    width: 60%;\n    font-size: 24px;\n    border-radius: 10;\n}\n", ""]);
+exports.push([module.i, "\nPage[data-v-67410f3a] {\n    margin: 0;\n    background-image: url('~/images/bg.jpg');\n    background-position: center;\n    background-size: cover;\n    background-repeat: no-repeat;\n    height:100%;\n}\n.header[data-v-67410f3a] {\n    font-size: 70px;\n    text-align: center;\n    padding-top: 200;\n    padding-bottom: 50;\n}\n.login[data-v-67410f3a] {\n    background-color:cornflowerblue;\n    color: white;\n    height: 50;\n    width:60%;\n    font-size: 24px;\n    margin-bottom: 20;\n    border-radius: 10;\n}\n.signup[data-v-67410f3a] {\n    background-color:mediumseagreen;\n    color:white;\n    height: 50;\n    width: 60%;\n    font-size: 24px;\n    border-radius: 10;\n}\n", ""]);
 
 // exports
 
@@ -589,7 +589,7 @@ var render = function() {
         [
           _c("Label", {
             staticClass: "header",
-            attrs: { text: "BlaBlaa", textWrap: "true" }
+            attrs: { text: "BlaBla", textWrap: "true" }
           }),
           _c("Button", {
             staticClass: "login",

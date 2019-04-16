@@ -1,7 +1,7 @@
 <template>
     <Page class="Page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
         <StackLayout row="1">
-            <Label text="BlaBlaa" textWrap="true" class="header"/>
+            <Label text="BlaBla" textWrap="true" class="header"/>
             <Button text="Login" class="login" @tap="$navigateTo(Login)"/>
             <Button text="Signup" class="signup" @tap="$navigateTo(Signup)"/>
         </StackLayout>
@@ -27,7 +27,8 @@ import Signup from './Signup';
     Page {
         margin: 0;
         background-image: url('~/images/bg.jpg');
-        
+        background-position: center;
+        background-size: cover;
         background-repeat: no-repeat;
         height:100%;
     }
