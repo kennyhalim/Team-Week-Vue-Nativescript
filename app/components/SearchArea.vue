@@ -2,16 +2,15 @@
     <Page class="page">
         <ScrollView>
             <StackLayout>
-                <Switch checked="true" />
-                <Button text="Show location" @tap="enableLocationServices"
-                    :visibility="currentGeoLocation.latitude ? 'collapsed' : 'visible'" />
+                <Label text="'Turn on location sharing & see who's close by!" />
+                <Switch @tap="enableLocationServices" @tap="onButtonTap(currentGeoLocation.latitude, currentGeoLocation.longitude)" />
                 <StackLayout :visibility="currentGeoLocation.latitude ? 'visible' : 'collapsed'">
-                    <Label :text="'Latitude: ' + currentGeoLocation.latitude" />
+                    <!-- <Label :text="'Latitude: ' + currentGeoLocation.latitude" />
                     <Label :text="'Longitude: ' + currentGeoLocation.longitude" />
                     <Label :text="'Altitude: ' + currentGeoLocation.altitude" />
-                    <Label :text="'Direction: ' + currentGeoLocation.direction" />
-                    <Button text="Button" @tap="onButtonTap(currentGeoLocation.latitude, currentGeoLocation.longitude)" />
-                    <Label :text="'Distance: ' + this.distance + ' miles away'" />
+                    <Label :text="'Direction: ' + currentGeoLocation.direction" /> -->
+
+                    <Label :text="this.username + ' - ' + this.distance + ' miles away'" />
                 </StackLayout>
             </StackLayout>
         </ScrollView>
@@ -77,6 +76,7 @@
 
         data() {
             return {
+                username: "Tanner",
                 distance: this.distance,
                 currentGeoLocation: {
                     latitude: null,
