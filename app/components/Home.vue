@@ -26,8 +26,8 @@ import Signup from './Signup';
 <style scoped>
     Page {
         margin: 0;
-        /* background-image: url('~/images/bg.jpg'); */
-        background-color: aqua;
+        background-image: url('~/images/bg.jpg');
+        
         background-repeat: no-repeat;
         height:100%;
     }
