@@ -1,0 +1,70 @@
+<template>
+    <Page class="Page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
+        <StackLayout row="1">
+            <Label text="BlaBla" textWrap="true" class="header"/>
+            <Button text="Login" class="login" @tap="$navigateTo(Login)"/>
+            <Button text="Signup" class="signup"/>
+        </StackLayout>
+    </Page>
+</template>
+
+<script>
+import Login from './Login';
+    const login = {
+            template: `
+                <Frame>
+                    <Login />
+                </Frame>
+            `,
+
+            components: {
+                Login
+            }
+    }
+    
+    export default {
+        data() {
+            return {
+                Login: Login
+            };
+        }  
+    }
+
+</script>
+
+<style scoped>
+    Page {
+        margin: 0;
+        background-image: url('~/images/bg.jpg');
+        background-repeat: no-repeat;
+        height:100%;
+    }
+
+    .header {
+        font-size: 70px;
+        text-align: center;
+        padding-top: 200;
+        padding-bottom: 50;
+    }
+
+    .login {
+        background-color:cornflowerblue;
+        color: white;
+        height: 50;
+        width:60%;
+        font-size: 24px;
+        margin-bottom: 20;
+        border-radius: 10;
+    }
+
+    .signup {
+        background-color:mediumseagreen;
+        color:white;
+        height: 50;
+        width: 60%;
+        font-size: 24px;
+        border-radius: 10;
+    }
+</style>
+
+
