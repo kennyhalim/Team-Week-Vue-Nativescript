@@ -4,6 +4,7 @@
             <Label text="BlaBla" textWrap="true" class="header"/>
             <Button text="Login" class="login" @tap="$navigateTo(Login)"/>
             <Button text="Signup" class="signup" @tap="$navigateTo(Signup)"/>
+            <Button text="Tan" class="signup" @tap="$navigateTo(Tanner)"/>
         </StackLayout>
     </Page>
 </template>
@@ -11,14 +12,16 @@
 <script>
 import Login from './Login';
 import Signup from './Signup';
+import Tanner from './Tanner'
 
     export default {
         data() {
             return {
                 Login: Login,
-                Signup: Signup
+                Signup: Signup,
+                Tanner: Tanner
             };
-        }  
+        }
     }
 
 </script>

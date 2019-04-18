@@ -23,8 +23,10 @@
         "nativescript-imagepicker": "6.1.2",
         "nativescript-intl": "3.0.0",
         "nativescript-iqkeyboardmanager": "1.4.0",
+        "nativescript-mapbox": "^4.4.1",
         "nativescript-plugin-firebase": "^8.2.0",
         "nativescript-social-share": "1.5.1",
+        "nativescript-sqlite": "^2.3.3",
         "nativescript-theme-core": "1.0.4",
         "nativescript-toast": "1.4.6",
         "nativescript-ui-autocomplete": "4.0.0",
@@ -36,7 +38,8 @@
         "nativescript-ui-sidedrawer": "6.0.0",
         "nativescript-vue": "2.2.0",
         "nativescript-vue-devtools": "1.1.0",
-        "tns-core-modules": "5.3.1"
+        "tns-core-modules": "5.3.1",
+        "vuex": "^3.1.0"
     },
     "devDependencies": {
         "@babel/core": "^7.0.0",

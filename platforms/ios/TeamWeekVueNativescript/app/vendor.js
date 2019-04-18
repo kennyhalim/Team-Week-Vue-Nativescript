@@ -152,6 +152,2605 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "../node_modules/nativescript-mapbox/mapbox.common.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var view_1 = __webpack_require__("tns-core-modules/ui/core/view");
+
+var content_view_1 = __webpack_require__("tns-core-modules/ui/content-view");
+
+var MapStyle;
+
+(function (MapStyle) {
+  MapStyle[MapStyle["DARK"] = "dark"] = "DARK";
+  MapStyle[MapStyle["OUTDOORS"] = "outdoors"] = "OUTDOORS";
+  MapStyle[MapStyle["LIGHT"] = "light"] = "LIGHT";
+  MapStyle[MapStyle["SATELLITE"] = "satellite"] = "SATELLITE";
+  MapStyle[MapStyle["SATELLITE_STREETS"] = "satellite_streets"] = "SATELLITE_STREETS";
+  MapStyle[MapStyle["STREETS"] = "streets"] = "STREETS";
+  MapStyle[MapStyle["TRAFFIC_DAY"] = "traffic_day"] = "TRAFFIC_DAY";
+  MapStyle[MapStyle["TRAFFIC_NIGHT"] = "traffic_night"] = "TRAFFIC_NIGHT";
+})(MapStyle = exports.MapStyle || (exports.MapStyle = {}));
+
+var MapboxCommon = function () {
+  function MapboxCommon() {}
+
+  MapboxCommon.merge = function (obj1, obj2) {
+    var result = {};
+
+    for (var i in obj1) {
+      if (i in obj2 && typeof obj1[i] === "object" && i !== null) {
+        result[i] = this.merge(obj1[i], obj2[i]);
+      } else {
+        result[i] = obj1[i];
+      }
+    }
+
+    for (var i in obj2) {
+      if (i in result) {
+        continue;
+      }
+
+      result[i] = obj2[i];
+    }
+
+    return result;
+  };
+
+  MapboxCommon.prototype.requestFineLocationPermission = function () {
+    return new Promise(function (resolve) {
+      resolve();
+    });
+  };
+
+  MapboxCommon.prototype.hasFineLocationPermission = function () {
+    return new Promise(function (resolve) {
+      resolve(true);
+    });
+  };
+
+  MapboxCommon.defaults = {
+    style: MapStyle.STREETS.toString(),
+    mapStyle: MapStyle.STREETS.toString(),
+    margins: {
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0
+    },
+    zoomLevel: 0,
+    showUserLocation: false,
+    hideLogo: false,
+    hideAttribution: true,
+    hideCompass: false,
+    disableRotation: false,
+    disableScroll: false,
+    disableZoom: false,
+    disableTilt: false,
+    delay: 0
+  };
+  return MapboxCommon;
+}();
+
+exports.MapboxCommon = MapboxCommon;
+
+var MapboxViewCommonBase = function (_super) {
+  __extends(MapboxViewCommonBase, _super);
+
+  function MapboxViewCommonBase() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MapboxViewCommonBase.prototype.addMarkers = function (markers) {
+    return this.mapbox.addMarkers(markers, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.removeMarkers = function (options) {
+    return this.mapbox.removeMarkers(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setOnMapClickListener = function (listener) {
+    return this.mapbox.setOnMapClickListener(listener, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setOnMapLongClickListener = function (listener) {
+    return this.mapbox.setOnMapLongClickListener(listener, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setOnScrollListener = function (listener, nativeMap) {
+    return this.mapbox.setOnScrollListener(listener, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setOnFlingListener = function (listener, nativeMap) {
+    return this.mapbox.setOnFlingListener(listener, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setOnCameraMoveListener = function (listener, nativeMap) {
+    return this.mapbox.setOnCameraMoveListener(listener, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setOnCameraMoveCancelListener = function (listener, nativeMap) {
+    return this.mapbox.setOnCameraMoveCancelListener(listener, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setOnCameraIdleListener = function (listener, nativeMap) {
+    return this.mapbox.setOnCameraIdleListener(listener, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.getViewport = function () {
+    return this.mapbox.getViewport(this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setViewport = function (options) {
+    return this.mapbox.setViewport(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setMapStyle = function (style) {
+    return this.mapbox.setMapStyle(style, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.getCenter = function () {
+    return this.mapbox.getCenter(this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setCenter = function (options) {
+    return this.mapbox.setCenter(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.getZoomLevel = function () {
+    return this.mapbox.getZoomLevel(this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setZoomLevel = function (options) {
+    return this.mapbox.setZoomLevel(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.getTilt = function () {
+    return this.mapbox.getTilt(this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.setTilt = function (options) {
+    return this.mapbox.setTilt(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.getUserLocation = function () {
+    return this.mapbox.getUserLocation(this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.trackUser = function (options) {
+    return this.mapbox.trackUser(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.queryRenderedFeatures = function (options) {
+    return this.mapbox.queryRenderedFeatures(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.addPolygon = function (options) {
+    return this.mapbox.addPolygon(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.removePolygons = function (ids) {
+    return this.mapbox.removePolygons(ids, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.addPolyline = function (options) {
+    return this.mapbox.addPolyline(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.removePolylines = function (ids) {
+    return this.mapbox.removePolylines(ids, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.animateCamera = function (options) {
+    return this.mapbox.animateCamera(options, this.getNativeMapView());
+  };
+
+  MapboxViewCommonBase.prototype.destroy = function () {
+    return this.mapbox.destroy(this.getNativeMapView());
+  };
+
+  return MapboxViewCommonBase;
+}(content_view_1.ContentView);
+
+exports.MapboxViewCommonBase = MapboxViewCommonBase;
+exports.zoomLevelProperty = new view_1.Property({
+  name: "zoomLevel"
+});
+exports.zoomLevelProperty.register(MapboxViewCommonBase);
+exports.accessTokenProperty = new view_1.Property({
+  name: "accessToken"
+});
+exports.accessTokenProperty.register(MapboxViewCommonBase);
+exports.mapStyleProperty = new view_1.Property({
+  name: "mapStyle"
+});
+exports.mapStyleProperty.register(MapboxViewCommonBase);
+exports.latitudeProperty = new view_1.Property({
+  name: "latitude"
+});
+exports.latitudeProperty.register(MapboxViewCommonBase);
+exports.longitudeProperty = new view_1.Property({
+  name: "longitude"
+});
+exports.longitudeProperty.register(MapboxViewCommonBase);
+exports.showUserLocationProperty = new view_1.Property({
+  name: "showUserLocation",
+  defaultValue: MapboxCommon.defaults.showUserLocation,
+  valueConverter: view_1.booleanConverter
+});
+exports.showUserLocationProperty.register(MapboxViewCommonBase);
+exports.hideLogoProperty = new view_1.Property({
+  name: "hideLogo",
+  defaultValue: MapboxCommon.defaults.hideLogo,
+  valueConverter: view_1.booleanConverter
+});
+exports.hideLogoProperty.register(MapboxViewCommonBase);
+exports.hideAttributionProperty = new view_1.Property({
+  name: "hideAttribution",
+  defaultValue: MapboxCommon.defaults.hideAttribution,
+  valueConverter: view_1.booleanConverter
+});
+exports.hideAttributionProperty.register(MapboxViewCommonBase);
+exports.hideCompassProperty = new view_1.Property({
+  name: "hideCompass",
+  defaultValue: MapboxCommon.defaults.hideCompass,
+  valueConverter: view_1.booleanConverter
+});
+exports.hideCompassProperty.register(MapboxViewCommonBase);
+exports.disableZoomProperty = new view_1.Property({
+  name: "disableZoom",
+  defaultValue: MapboxCommon.defaults.disableZoom,
+  valueConverter: view_1.booleanConverter
+});
+exports.disableZoomProperty.register(MapboxViewCommonBase);
+exports.disableRotationProperty = new view_1.Property({
+  name: "disableRotation",
+  defaultValue: MapboxCommon.defaults.disableRotation,
+  valueConverter: view_1.booleanConverter
+});
+exports.disableRotationProperty.register(MapboxViewCommonBase);
+exports.disableScrollProperty = new view_1.Property({
+  name: "disableScroll",
+  defaultValue: MapboxCommon.defaults.disableScroll,
+  valueConverter: view_1.booleanConverter
+});
+exports.disableScrollProperty.register(MapboxViewCommonBase);
+exports.disableTiltProperty = new view_1.Property({
+  name: "disableTilt",
+  defaultValue: MapboxCommon.defaults.disableTilt,
+  valueConverter: view_1.booleanConverter
+});
+exports.disableTiltProperty.register(MapboxViewCommonBase);
+exports.delayProperty = new view_1.Property({
+  name: "delay"
+});
+exports.delayProperty.register(MapboxViewCommonBase);
+
+var MapboxViewBase = function (_super) {
+  __extends(MapboxViewBase, _super);
+
+  function MapboxViewBase() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.config = {};
+    return _this;
+  }
+
+  MapboxViewBase.prototype[exports.zoomLevelProperty.setNative] = function (value) {
+    this.config.zoomLevel = +value;
+  };
+
+  MapboxViewBase.prototype[exports.mapStyleProperty.setNative] = function (value) {
+    this.config.style = value;
+    this.config.mapStyle = value;
+  };
+
+  MapboxViewBase.prototype[exports.accessTokenProperty.setNative] = function (value) {
+    this.config.accessToken = value;
+  };
+
+  MapboxViewBase.prototype[exports.delayProperty.setNative] = function (value) {
+    this.config.delay = parseInt("" + value);
+  };
+
+  MapboxViewBase.prototype[exports.latitudeProperty.setNative] = function (value) {
+    this.config.center = this.config.center || {};
+    this.config.center.lat = +value;
+  };
+
+  MapboxViewBase.prototype[exports.longitudeProperty.setNative] = function (value) {
+    this.config.center = this.config.center || {};
+    this.config.center.lng = +value;
+  };
+
+  MapboxViewBase.prototype[exports.showUserLocationProperty.setNative] = function (value) {
+    this.config.showUserLocation = value;
+  };
+
+  MapboxViewBase.prototype[exports.hideLogoProperty.setNative] = function (value) {
+    this.config.hideLogo = value;
+  };
+
+  MapboxViewBase.prototype[exports.hideAttributionProperty.setNative] = function (value) {
+    this.config.hideAttribution = value;
+  };
+
+  MapboxViewBase.prototype[exports.hideCompassProperty.setNative] = function (value) {
+    this.config.hideCompass = value;
+  };
+
+  MapboxViewBase.prototype[exports.disableZoomProperty.setNative] = function (value) {
+    this.config.disableZoom = value;
+  };
+
+  MapboxViewBase.prototype[exports.disableRotationProperty.setNative] = function (value) {
+    this.config.disableRotation = value;
+  };
+
+  MapboxViewBase.prototype[exports.disableScrollProperty.setNative] = function (value) {
+    this.config.disableScroll = value;
+  };
+
+  MapboxViewBase.prototype[exports.disableTiltProperty.setNative] = function (value) {
+    this.config.disableTilt = value;
+  };
+
+  MapboxViewBase.mapReadyEvent = "mapReady";
+  MapboxViewBase.locationPermissionGrantedEvent = "locationPermissionGranted";
+  MapboxViewBase.locationPermissionDeniedEvent = "locationPermissionDenied";
+  return MapboxViewBase;
+}(MapboxViewCommonBase);
+
+exports.MapboxViewBase = MapboxViewBase;
+
+/***/ }),
+
+/***/ "../node_modules/nativescript-mapbox/mapbox.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var fs = __webpack_require__("tns-core-modules/file-system");
+
+var imgSrc = __webpack_require__("tns-core-modules/image-source");
+
+var utils = __webpack_require__("tns-core-modules/utils/utils");
+
+var http = __webpack_require__("tns-core-modules/http");
+
+var mapbox_common_1 = __webpack_require__("../node_modules/nativescript-mapbox/mapbox.common.js");
+
+exports.MapStyle = mapbox_common_1.MapStyle;
+
+var color_1 = __webpack_require__("tns-core-modules/color");
+
+var _markers = [];
+var _markerIconDownloadCache = [];
+
+var _mapView;
+
+var _mapbox = {};
+
+var _delegate;
+
+var _setMapboxMapOptions = function _setMapboxMapOptions(mapView, settings) {
+  mapView.logoView.hidden = settings.hideLogo;
+  mapView.attributionButton.hidden = settings.hideAttribution;
+  mapView.compassView.hidden = settings.hideCompass;
+  mapView.rotateEnabled = !settings.disableRotation;
+  mapView.scrollEnabled = !settings.disableScroll;
+  mapView.zoomEnabled = !settings.disableZoom;
+  mapView.allowsTilting = !settings.disableTilt;
+
+  if (settings.center && settings.center.lat && settings.center.lng) {
+    var centerCoordinate = CLLocationCoordinate2DMake(settings.center.lat, settings.center.lng);
+    mapView.setCenterCoordinateZoomLevelAnimated(centerCoordinate, settings.zoomLevel, false);
+  } else {
+    mapView.setZoomLevelAnimated(settings.zoomLevel, false);
+  }
+
+  mapView.showsUserLocation = settings.showUserLocation;
+  mapView.autoresizingMask = 2 | 16;
+};
+
+var _getMapStyle = function _getMapStyle(input) {
+  if (/^mapbox:\/\/styles/.test(input) || /^http:\/\//.test(input) || /^https:\/\//.test(input)) {
+    return NSURL.URLWithString(input);
+  } else if (/^~\//.test(input)) {
+    var assetPath = 'file://' + fs.knownFolders.currentApp().path + '/';
+    input = input.replace(/^~\//, assetPath);
+    return NSURL.URLWithString(input);
+  } else if (input === mapbox_common_1.MapStyle.LIGHT || input === mapbox_common_1.MapStyle.LIGHT.toString()) {
+    return MGLStyle.lightStyleURL;
+  } else if (input === mapbox_common_1.MapStyle.DARK || input === mapbox_common_1.MapStyle.DARK.toString()) {
+    return MGLStyle.darkStyleURL;
+  } else if (input === mapbox_common_1.MapStyle.OUTDOORS || input === mapbox_common_1.MapStyle.OUTDOORS.toString()) {
+    return MGLStyle.outdoorsStyleURL;
+  } else if (input === mapbox_common_1.MapStyle.SATELLITE || input === mapbox_common_1.MapStyle.SATELLITE.toString()) {
+    return MGLStyle.satelliteStyleURL;
+  } else if (input === mapbox_common_1.MapStyle.SATELLITE_STREETS || input === mapbox_common_1.MapStyle.SATELLITE_STREETS.toString()) {
+    return MGLStyle.satelliteStreetsStyleURL;
+  } else if (input === mapbox_common_1.MapStyle.TRAFFIC_DAY || input === mapbox_common_1.MapStyle.TRAFFIC_DAY.toString()) {
+    return NSURL.URLWithString("mapbox://styles/mapbox/traffic-day-v2");
+  } else if (input === mapbox_common_1.MapStyle.TRAFFIC_NIGHT || input === mapbox_common_1.MapStyle.TRAFFIC_NIGHT.toString()) {
+    return NSURL.URLWithString("mapbox://styles/mapbox/traffic-night-v2");
+  } else {
+    return MGLStyle.streetsStyleURL;
+  }
+};
+
+var _getTrackingMode = function _getTrackingMode(input) {
+  if (input === "FOLLOW") {
+    return 1;
+  } else if (input === "FOLLOW_WITH_HEADING") {
+    return 2;
+  } else if (input === "FOLLOW_WITH_COURSE") {
+    return 3;
+  } else {
+    return 0;
+  }
+};
+
+var MapboxView = function (_super) {
+  __extends(MapboxView, _super);
+
+  function MapboxView() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MapboxView.prototype.getNativeMapView = function () {
+    return this.mapView;
+  };
+
+  MapboxView.prototype.createNativeView = function () {
+    var _this = this;
+
+    var v = _super.prototype.createNativeView.call(this);
+
+    setTimeout(function () {
+      _this.initMap();
+    }, 0);
+    return v;
+  };
+
+  MapboxView.prototype.initMap = function () {
+    var _this = this;
+
+    if (!this.mapView && this.config.accessToken) {
+      this.mapbox = new Mapbox();
+      var settings_1 = Mapbox.merge(this.config, Mapbox.defaults);
+
+      var drawMap = function drawMap() {
+        MGLAccountManager.accessToken = settings_1.accessToken;
+        _this.mapView = MGLMapView.alloc().initWithFrameStyleURL(CGRectMake(0, 0, _this.nativeView.frame.size.width, _this.nativeView.frame.size.height), _getMapStyle(settings_1.style));
+        _this.mapView.delegate = _this.delegate = MGLMapViewDelegateImpl.new().initWithCallback(function () {
+          _this.notify({
+            eventName: mapbox_common_1.MapboxViewBase.mapReadyEvent,
+            object: _this,
+            map: _this,
+            ios: _this.mapView
+          });
+
+          _this.notify({
+            eventName: mapbox_common_1.MapboxViewBase.locationPermissionGrantedEvent,
+            object: _this,
+            map: _this,
+            ios: _this.mapView
+          });
+        });
+
+        _setMapboxMapOptions(_this.mapView, settings_1);
+
+        _markers = [];
+
+        _this.nativeView.addSubview(_this.mapView);
+      };
+
+      setTimeout(drawMap, settings_1.delay ? settings_1.delay : 0);
+    }
+  };
+
+  MapboxView.prototype.onLayout = function (left, top, right, bottom) {
+    _super.prototype.onLayout.call(this, left, top, right, bottom);
+
+    if (this.mapView) {
+      this.mapView.layer.frame = this.ios.layer.bounds;
+    }
+  };
+
+  return MapboxView;
+}(mapbox_common_1.MapboxViewBase);
+
+exports.MapboxView = MapboxView;
+
+var Mapbox = function (_super) {
+  __extends(Mapbox, _super);
+
+  function Mapbox() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  Mapbox.prototype.show = function (options) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var settings = Mapbox.merge(options, Mapbox.defaults);
+
+        if (settings.accessToken === undefined) {
+          reject("Please set the 'accessToken' parameter");
+          return;
+        }
+
+        if (_mapView) {
+          _mapView.removeFromSuperview();
+        }
+
+        var view_1 = utils.ios.getter(UIApplication, UIApplication.sharedApplication).keyWindow.rootViewController.view,
+            frameRect = view_1.frame,
+            mapFrame = CGRectMake(settings.margins.left, settings.margins.top, frameRect.size.width - settings.margins.left - settings.margins.right, frameRect.size.height - settings.margins.top - settings.margins.bottom),
+            styleURL = _getMapStyle(settings.style);
+
+        MGLAccountManager.accessToken = settings.accessToken;
+        _mapbox.mapView = MGLMapView.alloc().initWithFrameStyleURL(mapFrame, styleURL);
+
+        _setMapboxMapOptions(_mapbox.mapView, settings);
+
+        _mapbox.mapView.delegate = _delegate = MGLMapViewDelegateImpl.new().initWithCallback(function (mapView) {
+          resolve({
+            ios: mapView
+          });
+        });
+        _markers = [];
+
+        _addMarkers(settings.markers);
+
+        setTimeout(function () {
+          view_1.addSubview(_mapbox.mapView);
+        }, 500);
+      } catch (ex) {
+        console.log("Error in mapbox.show: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.hide = function () {
+    return new Promise(function (resolve, reject) {
+      try {
+        if (_mapbox.mapView) {
+          _mapbox.mapView.removeFromSuperview();
+        }
+
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.hide: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.unhide = function () {
+    return new Promise(function (resolve, reject) {
+      try {
+        if (_mapbox.mapView) {
+          var view = utils.ios.getter(UIApplication, UIApplication.sharedApplication).keyWindow.rootViewController.view;
+          view.addSubview(_mapbox.mapView);
+          resolve();
+        } else {
+          reject("No map found");
+        }
+      } catch (ex) {
+        console.log("Error in mapbox.unhide: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.destroy = function (nativeMap) {
+    return new Promise(function (resolve, reject) {
+      var theMap = nativeMap || _mapbox.mapView;
+
+      if (theMap) {
+        theMap.removeFromSuperview();
+        theMap.delegate = null;
+        _mapbox = {};
+      }
+
+      resolve();
+    });
+  };
+
+  Mapbox.prototype.setMapStyle = function (style, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        theMap.styleURL = _getMapStyle(style);
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.setMapStyle: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.addMarkers = function (markers, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        _addMarkers(markers, theMap);
+
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.addMarkers: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.removeMarkers = function (ids, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var markersToRemove_1 = [];
+
+        _markers.forEach(function (marker) {
+          if (!ids || marker.id && ids.indexOf(marker.id) > -1) {
+            markersToRemove_1.push(marker.ios);
+          }
+        });
+
+        if (ids) {
+          _markers = _markers.filter(function (marker) {
+            return ids.indexOf(marker.id) < 0;
+          });
+        } else {
+          _markers = [];
+        }
+
+        if (markersToRemove_1.length > 0) {
+          theMap.removeAnnotations(markersToRemove_1);
+        }
+
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.removeMarkers: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setCenter = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var animated = options.animated === undefined || options.animated;
+        var coordinate = CLLocationCoordinate2DMake(options.lat, options.lng);
+        theMap.setCenterCoordinateAnimated(coordinate, animated);
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.setCenter: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.getCenter = function (nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var coordinate = theMap.centerCoordinate;
+        resolve({
+          lat: coordinate.latitude,
+          lng: coordinate.longitude
+        });
+      } catch (ex) {
+        console.log("Error in mapbox.getCenter: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setZoomLevel = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var animated = options.animated === undefined || options.animated;
+        var level = options.level;
+
+        if (level >= 0 && level <= 20) {
+          theMap.setZoomLevelAnimated(level, animated);
+          resolve();
+        } else {
+          reject("invalid zoomlevel, use any double value from 0 to 20 (like 8.3)");
+        }
+      } catch (ex) {
+        console.log("Error in mapbox.setZoomLevel: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.getZoomLevel = function (nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        resolve(theMap.zoomLevel);
+      } catch (ex) {
+        console.log("Error in mapbox.getZoomLevel: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setTilt = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var cam = theMap.camera;
+        cam.pitch = options.tilt;
+        var durationMs = options.duration ? options.duration : 5000;
+        theMap.setCameraWithDurationAnimationTimingFunction(cam, durationMs / 1000, CAMediaTimingFunction.functionWithName(kCAMediaTimingFunctionEaseInEaseOut));
+        setTimeout(function () {
+          resolve();
+        }, durationMs);
+      } catch (ex) {
+        console.log("Error in mapbox.setTilt: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.getTilt = function (nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        resolve(theMap.camera.pitch);
+      } catch (ex) {
+        console.log("Error in mapbox.getTilt: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.getUserLocation = function (nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var loc = theMap.userLocation;
+
+        if (loc === null) {
+          reject("Location not available");
+        } else {
+          resolve({
+            location: {
+              lat: loc.coordinate.latitude,
+              lng: loc.coordinate.longitude
+            },
+            speed: loc.location ? loc.location.speed : 0
+          });
+        }
+      } catch (ex) {
+        console.log("Error in mapbox.getUserLocation: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.queryRenderedFeatures = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var point = options.point;
+
+        if (point === undefined) {
+          reject("Please set the 'point' parameter");
+          return;
+        }
+
+        var _a = theMap.convertCoordinateToPointToView({
+          latitude: point.lat,
+          longitude: point.lng
+        }, theMap),
+            x = _a.x,
+            y = _a.y;
+
+        var features = theMap.visibleFeaturesAtPoint({
+          x: x,
+          y: y
+        });
+        var result = [];
+
+        for (var i = 0; i < features.count; i++) {
+          var feature = features.objectAtIndex(i);
+          result.push({
+            id: feature.identifier,
+            properties: JSON.parse(feature.attributes.toString())
+          });
+        }
+
+        resolve(result);
+      } catch (ex) {
+        console.log("Error in mapbox.queryRenderedFeatures: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.addPolygon = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      var theMap = nativeMap || _mapbox.mapView;
+      var points = options.points;
+
+      if (points === undefined) {
+        reject("Please set the 'points' parameter");
+        return;
+      }
+
+      var coordinateArray = [];
+      points.forEach(function (point) {
+        return coordinateArray.push([point.lng, point.lat]);
+      });
+      var polygonID = "polygon_" + (options.id || new Date().getTime());
+
+      if (theMap.style.sourceWithIdentifier(polygonID)) {
+        reject("Remove the polygon with this id first with 'removePolygons': " + polygonID);
+        return;
+      }
+
+      var geoJSON = "{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\",\"properties\": {},\"geometry\": {\"type\": \"Polygon\", \"coordinates\": [" + JSON.stringify(coordinateArray) + "]}}]}";
+      var geoDataStr = NSString.stringWithString(geoJSON);
+      var geoData = geoDataStr.dataUsingEncoding(NSUTF8StringEncoding);
+      var geoDataBase64Enc = geoData.base64EncodedStringWithOptions(0);
+      var geo = NSData.alloc().initWithBase64EncodedStringOptions(geoDataBase64Enc, null);
+      var shape = MGLShape.shapeWithDataEncodingError(geo, NSUTF8StringEncoding);
+      var source = MGLShapeSource.alloc().initWithIdentifierShapeOptions(polygonID, shape, null);
+      theMap.style.addSource(source);
+
+      if (options.strokeColor || options.strokeWidth || options.strokeOpacity) {
+        var strokeLayer = MGLLineStyleLayer.alloc().initWithIdentifierSource(polygonID + "_stroke", source);
+        strokeLayer.lineColor = NSExpression.expressionForConstantValue(!options.strokeColor ? UIColor.blackColor : options.strokeColor instanceof color_1.Color ? options.strokeColor.ios : new color_1.Color(options.strokeColor).ios);
+        strokeLayer.lineWidth = NSExpression.expressionForConstantValue(options.strokeWidth || 5);
+        strokeLayer.lineOpacity = NSExpression.expressionForConstantValue(options.strokeOpacity === undefined ? 1 : options.strokeOpacity);
+        theMap.style.addLayer(strokeLayer);
+      }
+
+      var layer = MGLFillStyleLayer.alloc().initWithIdentifierSource(polygonID, source);
+      layer.fillColor = NSExpression.expressionForConstantValue(!options.fillColor ? UIColor.blackColor : options.fillColor instanceof color_1.Color ? options.fillColor.ios : new color_1.Color(options.fillColor).ios);
+      layer.fillOpacity = NSExpression.expressionForConstantValue(options.fillOpacity === undefined ? 1 : options.fillOpacity);
+      theMap.style.addLayer(layer);
+      resolve();
+    });
+  };
+
+  Mapbox.prototype.addPolyline = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      var theMap = nativeMap || _mapbox.mapView;
+      var points = options.points;
+
+      if (points === undefined) {
+        reject("Please set the 'points' parameter");
+        return;
+      }
+
+      var coordinateArray = [];
+      points.forEach(function (point) {
+        return coordinateArray.push([point.lng, point.lat]);
+      });
+      var polylineID = "polyline_" + (options.id || new Date().getTime());
+
+      if (theMap.style.sourceWithIdentifier(polylineID)) {
+        reject("Remove the polyline with this id first with 'removePolylines': " + polylineID);
+        return;
+      }
+
+      var geoJSON = "{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\",\"properties\": {},\"geometry\": {\"type\": \"LineString\", \"coordinates\": " + JSON.stringify(coordinateArray) + "}}]}";
+      var geoDataStr = NSString.stringWithString(geoJSON);
+      var geoData = geoDataStr.dataUsingEncoding(NSUTF8StringEncoding);
+      var geoDataBase64Enc = geoData.base64EncodedStringWithOptions(0);
+      var geo = NSData.alloc().initWithBase64EncodedStringOptions(geoDataBase64Enc, null);
+      var shape = MGLShape.shapeWithDataEncodingError(geo, NSUTF8StringEncoding);
+      var source = MGLShapeSource.alloc().initWithIdentifierShapeOptions(polylineID, shape, null);
+      theMap.style.addSource(source);
+      var layer = MGLLineStyleLayer.alloc().initWithIdentifierSource(polylineID, source);
+      layer.lineColor = NSExpression.expressionForConstantValue(!options.color ? UIColor.blackColor : options.color instanceof color_1.Color ? options.color.ios : new color_1.Color(options.color).ios);
+      layer.lineWidth = NSExpression.expressionForConstantValue(options.width || 5);
+      layer.lineOpacity = NSExpression.expressionForConstantValue(options.opacity === undefined ? 1 : options.opacity);
+      theMap.style.addLayer(layer);
+      resolve();
+    });
+  };
+
+  Mapbox.prototype.removePolyById = function (theMap, id) {
+    var layer = theMap.style.layerWithIdentifier(id);
+
+    if (layer !== null) {
+      theMap.style.removeLayer(layer);
+    }
+
+    layer = theMap.style.layerWithIdentifier(id + "_stroke");
+
+    if (layer !== null) {
+      theMap.style.removeLayer(layer);
+    }
+
+    var source = theMap.style.sourceWithIdentifier(id);
+
+    if (source !== null) {
+      theMap.style.removeSource(source);
+    }
+  };
+
+  Mapbox.prototype.removePolygons = function (ids, nativeMap) {
+    var _this = this;
+
+    return new Promise(function (resolve, reject) {
+      var theMap = nativeMap || _mapbox.mapView;
+      ids.map(function (id) {
+        return _this.removePolyById(theMap, "polygon_" + id);
+      });
+      resolve();
+    });
+  };
+
+  Mapbox.prototype.removePolylines = function (ids, nativeMap) {
+    var _this = this;
+
+    return new Promise(function (resolve, reject) {
+      var theMap = nativeMap || _mapbox.mapView;
+      ids.map(function (id) {
+        return _this.removePolyById(theMap, "polyline_" + id);
+      });
+      resolve();
+    });
+  };
+
+  Mapbox.prototype.animateCamera = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+        var target = options.target;
+
+        if (target === undefined) {
+          reject("Please set the 'target' parameter");
+          return;
+        }
+
+        var cam = theMap.camera;
+        cam.centerCoordinate = CLLocationCoordinate2DMake(target.lat, target.lng);
+
+        if (options.altitude) {
+          cam.altitude = options.altitude;
+        }
+
+        if (options.bearing) {
+          cam.heading = options.bearing;
+        }
+
+        if (options.tilt) {
+          cam.pitch = options.tilt;
+        }
+
+        var durationMs = options.duration ? options.duration : 10000;
+        theMap.setCameraWithDurationAnimationTimingFunction(cam, durationMs / 1000, CAMediaTimingFunction.functionWithName(kCAMediaTimingFunctionEaseInEaseOut));
+        setTimeout(function () {
+          resolve();
+        }, durationMs);
+      } catch (ex) {
+        console.log("Error in mapbox.animateCamera: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setOnMapClickListener = function (listener, nativeMap) {
+    var _this = this;
+
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        if (!theMap) {
+          reject("No map has been loaded");
+          return;
+        }
+
+        theMap['mapTapHandler'] = MapTapHandlerImpl.initWithOwnerAndListenerForMap(new WeakRef(_this), listener, theMap);
+        var tapGestureRecognizer = UITapGestureRecognizer.alloc().initWithTargetAction(theMap['mapTapHandler'], "tap");
+
+        for (var i = 0; i < theMap.gestureRecognizers.count; i++) {
+          var recognizer = theMap.gestureRecognizers.objectAtIndex(i);
+
+          if (recognizer instanceof UITapGestureRecognizer) {
+            tapGestureRecognizer.requireGestureRecognizerToFail(recognizer);
+          }
+        }
+
+        theMap.addGestureRecognizer(tapGestureRecognizer);
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.setOnMapClickListener: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setOnMapLongClickListener = function (listener, nativeMap) {
+    var _this = this;
+
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        if (!theMap) {
+          reject("No map has been loaded");
+          return;
+        }
+
+        theMap['mapLongPressHandler'] = MapLongPressHandlerImpl.initWithOwnerAndListenerForMap(new WeakRef(_this), listener, theMap);
+        var longPressGestureRecognizer = UILongPressGestureRecognizer.alloc().initWithTargetAction(theMap['mapLongPressHandler'], "longPress");
+
+        for (var i = 0; i < theMap.gestureRecognizers.count; i++) {
+          var recognizer = theMap.gestureRecognizers.objectAtIndex(i);
+
+          if (recognizer instanceof UILongPressGestureRecognizer) {
+            longPressGestureRecognizer.requireGestureRecognizerToFail(recognizer);
+          }
+        }
+
+        theMap.addGestureRecognizer(longPressGestureRecognizer);
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.setOnMapClickListener: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setOnScrollListener = function (listener, nativeMap) {
+    var _this = this;
+
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        if (!theMap) {
+          reject("No map has been loaded");
+          return;
+        }
+
+        theMap['mapPanHandler'] = MapPanHandlerImpl.initWithOwnerAndListenerForMap(new WeakRef(_this), listener, theMap);
+
+        for (var i = 0; i < theMap.gestureRecognizers.count; i++) {
+          var recognizer = theMap.gestureRecognizers.objectAtIndex(i);
+
+          if (recognizer instanceof UIPanGestureRecognizer) {
+            recognizer.addTargetAction(theMap['mapPanHandler'], "pan");
+            break;
+          }
+        }
+
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.setOnScrollListener: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setOnFlingListener = function (listener, nativeMap) {
+    return Promise.reject("'setOnFlingListener' is not supported on iOS");
+  };
+
+  Mapbox.prototype.setOnCameraMoveListener = function (listener, nativeMap) {
+    return Promise.reject("'setOnCameraMoveListener' not currently supported on iOS");
+  };
+
+  Mapbox.prototype.setOnCameraMoveCancelListener = function (listener, nativeMap) {
+    return Promise.reject("'setOnCameraMoveCancelListener' not currently supported on iOS");
+  };
+
+  Mapbox.prototype.setOnCameraIdleListener = function (listener, nativeMap) {
+    return Promise.reject("'setOnCameraIdleListener' not currently supported on iOS");
+  };
+
+  Mapbox.prototype.getViewport = function (nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        if (!theMap) {
+          reject("No map has been loaded");
+          return;
+        }
+
+        var visibleBounds = theMap.visibleCoordinateBounds;
+        var bounds = {
+          north: visibleBounds.ne.latitude,
+          east: visibleBounds.ne.longitude,
+          south: visibleBounds.sw.latitude,
+          west: visibleBounds.sw.longitude
+        };
+        resolve({
+          bounds: bounds,
+          zoomLevel: theMap.zoomLevel
+        });
+      } catch (ex) {
+        console.log("Error in mapbox.getViewport: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.setViewport = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        if (!theMap) {
+          reject("No map has been loaded");
+          return;
+        }
+
+        var bounds = {
+          sw: CLLocationCoordinate2DMake(options.bounds.south, options.bounds.west),
+          ne: CLLocationCoordinate2DMake(options.bounds.north, options.bounds.east)
+        };
+        var animated = options.animated === undefined || options.animated;
+        var padding = {
+          top: 25,
+          left: 25,
+          bottom: 25,
+          right: 25
+        };
+        theMap.setVisibleCoordinateBoundsEdgePaddingAnimated(bounds, padding, animated);
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.setViewport: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.downloadOfflineRegion = function (options) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var styleURL = _getMapStyle(options.style);
+
+        var swCoordinate = CLLocationCoordinate2DMake(options.bounds.south, options.bounds.west);
+        var neCoordinate = CLLocationCoordinate2DMake(options.bounds.north, options.bounds.east);
+        var bounds = {
+          sw: swCoordinate,
+          ne: neCoordinate
+        };
+        var region = MGLTilePyramidOfflineRegion.alloc().initWithStyleURLBoundsFromZoomLevelToZoomLevel(styleURL, bounds, options.minZoom, options.maxZoom);
+
+        if (options.accessToken) {
+          MGLAccountManager.accessToken = options.accessToken;
+        }
+
+        if (options.onProgress) {
+          _addObserver(MGLOfflinePackProgressChangedNotification, function (notification) {
+            var offlinePack = notification.object;
+            var offlinePackProgress = offlinePack.progress;
+            var userInfo = NSKeyedUnarchiver.unarchiveObjectWithData(offlinePack.context);
+            var complete = offlinePackProgress.countOfResourcesCompleted === offlinePackProgress.countOfResourcesExpected;
+            options.onProgress({
+              name: userInfo.objectForKey("name"),
+              completed: offlinePackProgress.countOfResourcesCompleted,
+              expected: offlinePackProgress.countOfResourcesExpected,
+              percentage: Math.round(offlinePackProgress.countOfResourcesCompleted / offlinePackProgress.countOfResourcesExpected * 10000) / 100,
+              complete: complete
+            });
+
+            if (complete) {
+              resolve();
+            }
+          });
+        }
+
+        _addObserver(MGLOfflinePackErrorNotification, function (notification) {
+          var offlinePack = notification.object;
+          var userInfo = NSKeyedUnarchiver.unarchiveObjectWithData(offlinePack.context);
+          var error = notification.userInfo[MGLOfflinePackUserInfoKeyError];
+          reject({
+            name: userInfo.objectForKey("name"),
+            error: "Download error. " + error
+          });
+        });
+
+        _addObserver(MGLOfflinePackMaximumMapboxTilesReachedNotification, function (notification) {
+          var offlinePack = notification.object;
+          var userInfo = NSKeyedUnarchiver.unarchiveObjectWithData(offlinePack.context);
+          var maximumCount = notification.userInfo[MGLOfflinePackUserInfoKeyMaximumCount];
+          console.log("Offline region '" + userInfo.objectForKey("name") + "' reached the tile limit of " + maximumCount);
+        });
+
+        var userInfo = {
+          "name": options.name
+        };
+        var context = NSKeyedArchiver.archivedDataWithRootObject(userInfo);
+        MGLOfflineStorage.sharedOfflineStorage.addPackForRegionWithContextCompletionHandler(region, context, function (pack, error) {
+          if (error) {
+            reject(error.localizedFailureReason);
+          } else {
+            pack.resume();
+          }
+        });
+      } catch (ex) {
+        console.log("Error in mapbox.downloadOfflineRegion: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.listOfflineRegions = function (options) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var packs = MGLOfflineStorage.sharedOfflineStorage.packs;
+
+        if (!packs) {
+          reject("No packs found or Mapbox not ready yet");
+          return;
+        }
+
+        var regions = [];
+
+        for (var i = 0; i < packs.count; i++) {
+          var pack = packs.objectAtIndex(i);
+          var region = pack.region;
+          var userInfo = NSKeyedUnarchiver.unarchiveObjectWithData(pack.context);
+          regions.push({
+            name: userInfo.objectForKey("name"),
+            style: "" + region.styleURL,
+            minZoom: region.minimumZoomLevel,
+            maxZoom: region.maximumZoomLevel,
+            bounds: {
+              north: region.bounds.ne.latitude,
+              east: region.bounds.ne.longitude,
+              south: region.bounds.sw.latitude,
+              west: region.bounds.sw.longitude
+            }
+          });
+        }
+
+        resolve(regions);
+      } catch (ex) {
+        console.log("Error in mapbox.listOfflineRegions: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.deleteOfflineRegion = function (options) {
+    return new Promise(function (resolve, reject) {
+      try {
+        if (!options || !options.name) {
+          reject("Pass in the 'name' param");
+          return;
+        }
+
+        var packs = MGLOfflineStorage.sharedOfflineStorage.packs;
+        var found = false;
+
+        for (var i = 0; i < packs.count; i++) {
+          var pack = packs.objectAtIndex(i);
+          var userInfo = NSKeyedUnarchiver.unarchiveObjectWithData(pack.context);
+          var name_1 = userInfo.objectForKey("name");
+
+          if (name_1 === options.name) {
+            found = true;
+            MGLOfflineStorage.sharedOfflineStorage.removePackWithCompletionHandler(pack, function (error) {
+              if (error) {
+                reject(error.localizedFailureReason);
+              } else {
+                resolve();
+              }
+            });
+          }
+        }
+
+        if (!found) {
+          reject("Region not found");
+        }
+      } catch (ex) {
+        console.log("Error in mapbox.deleteOfflineRegion: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.addExtrusion = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        if (!theMap) {
+          reject("No map has been loaded");
+          return;
+        }
+
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.deleteOfflineRegion: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  Mapbox.prototype.addGeoJsonClustered = function (options, nativeMap) {
+    throw new Error('Method not implemented.');
+  };
+
+  Mapbox.prototype.trackUser = function (options, nativeMap) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var theMap = nativeMap || _mapbox.mapView;
+
+        if (!theMap) {
+          reject("No map has been loaded");
+          return;
+        }
+
+        if (!theMap.showsUserLocation) {
+          reject("The map is not currently showing the user location");
+          return;
+        }
+
+        theMap.setUserTrackingModeAnimated(_getTrackingMode(options.mode), options.animated !== false);
+        resolve();
+      } catch (ex) {
+        console.log("Error in mapbox.trackUser: " + ex);
+        reject(ex);
+      }
+    });
+  };
+
+  return Mapbox;
+}(mapbox_common_1.MapboxCommon);
+
+exports.Mapbox = Mapbox;
+
+var _addObserver = function _addObserver(eventName, callback) {
+  return utils.ios.getter(NSNotificationCenter, NSNotificationCenter.defaultCenter).addObserverForNameObjectQueueUsingBlock(eventName, null, utils.ios.getter(NSOperationQueue, NSOperationQueue.mainQueue), callback);
+};
+
+var _downloadImage = function _downloadImage(marker) {
+  return new Promise(function (resolve, reject) {
+    console.log(">> _downloadImage");
+
+    if (_markerIconDownloadCache[marker.icon]) {
+      marker.iconDownloaded = _markerIconDownloadCache[marker.icon];
+      console.log(">> marker.iconDownloaded: " + marker.iconDownloaded);
+      resolve(marker);
+      return;
+    }
+
+    http.getImage(marker.icon).then(function (output) {
+      marker.iconDownloaded = output.ios;
+      _markerIconDownloadCache[marker.icon] = marker.iconDownloaded;
+      resolve(marker);
+    }, function (ignoredError) {
+      console.log("Download failed for " + marker.icon + " with error: " + ignoredError);
+      resolve(marker);
+    });
+  });
+};
+
+var _downloadMarkerImages = function _downloadMarkerImages(markers) {
+  var iterations = [];
+  var result = [];
+  markers.forEach(function (marker) {
+    if (marker.icon && marker.icon.startsWith("http")) {
+      var p = _downloadImage(marker).then(function (mark) {
+        return result.push(mark);
+      });
+
+      iterations.push(p);
+    } else {
+      result.push(marker);
+    }
+  });
+  return Promise.all(iterations).then(function () {
+    return result;
+  });
+};
+
+var _addMarkers = function _addMarkers(markers, nativeMap) {
+  if (!markers) {
+    console.log("No markers passed");
+    return;
+  }
+
+  if (!Array.isArray(markers)) {
+    console.log("markers must be passed as an Array: [{title: 'foo'}]");
+    return;
+  }
+
+  var theMap = nativeMap || _mapbox.mapView;
+
+  _downloadMarkerImages(markers).then(function (updatedMarkers) {
+    updatedMarkers.forEach(function (marker) {
+      var lat = marker.lat;
+      var lng = marker.lng;
+      var point = MGLPointAnnotation.new();
+      point.coordinate = CLLocationCoordinate2DMake(lat, lng);
+      point.title = marker.title;
+      point.subtitle = marker.subtitle;
+
+      _markers.push(marker);
+
+      theMap.addAnnotation(point);
+
+      if (marker.selected) {
+        theMap.selectAnnotationAnimated(point, false);
+      }
+
+      marker.ios = point;
+
+      marker.update = function (newSettings) {
+        _markers.forEach(function (_marker) {
+          if (marker.id === _marker.id) {
+            if (newSettings.onTap !== undefined) {
+              _marker.onTap = newSettings.onTap;
+            }
+
+            if (newSettings.onCalloutTap !== undefined) {
+              _marker.onCalloutTap = newSettings.onCalloutTap;
+            }
+
+            if (newSettings.title !== undefined) {
+              _marker.ios.title = _marker.title = newSettings.title;
+            }
+
+            if (newSettings.subtitle !== undefined) {
+              _marker.ios.subtitle = _marker.subtitle = newSettings.subtitle;
+            }
+
+            if (newSettings.lat && newSettings.lng) {
+              _marker.lat = newSettings.lat;
+              _marker.lng = newSettings.lng;
+              _marker.ios.coordinate = CLLocationCoordinate2DMake(newSettings.lat, newSettings.lng);
+            }
+
+            if (newSettings.selected) {
+              theMap.selectAnnotationAnimated(_marker.ios, false);
+            }
+          }
+        });
+      };
+    });
+  });
+};
+
+var MGLMapViewDelegateImpl = function (_super) {
+  __extends(MGLMapViewDelegateImpl, _super);
+
+  function MGLMapViewDelegateImpl() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MGLMapViewDelegateImpl.new = function () {
+    return _super.new.call(this);
+  };
+
+  MGLMapViewDelegateImpl.prototype.initWithCallback = function (mapLoadedCallback) {
+    this.mapLoadedCallback = mapLoadedCallback;
+    return this;
+  };
+
+  MGLMapViewDelegateImpl.prototype.mapViewDidFinishLoadingMap = function (mapView) {
+    if (this.mapLoadedCallback !== undefined) {
+      this.mapLoadedCallback(mapView);
+      this.mapLoadedCallback = undefined;
+    }
+  };
+
+  MGLMapViewDelegateImpl.prototype.mapViewAnnotationCanShowCallout = function (mapView, annotation) {
+    return true;
+  };
+
+  MGLMapViewDelegateImpl.prototype.mapViewDidFailLoadingMapWithError = function (mapView, error) {};
+
+  MGLMapViewDelegateImpl.prototype.mapViewDidChangeUserTrackingModeAnimated = function (mapView, mode, animated) {};
+
+  MGLMapViewDelegateImpl.prototype.mapViewImageForAnnotation = function (mapView, annotation) {
+    var cachedMarker = this.getTappedMarkerDetails(annotation);
+
+    if (cachedMarker) {
+      if (cachedMarker.reuseIdentifier) {
+        var reusedImage = mapView.dequeueReusableAnnotationImageWithIdentifier(cachedMarker.reuseIdentifier);
+
+        if (reusedImage) {
+          return reusedImage;
+        }
+      }
+
+      if (cachedMarker.icon) {
+        if (cachedMarker.icon.startsWith("res://")) {
+          var resourcename = cachedMarker.icon.substring("res://".length);
+          var imageSource = imgSrc.fromResource(resourcename);
+
+          if (imageSource === null) {
+            console.log("Unable to locate " + resourcename);
+          } else {
+            cachedMarker.reuseIdentifier = cachedMarker.icon;
+            return MGLAnnotationImage.annotationImageWithImageReuseIdentifier(imageSource.ios, cachedMarker.reuseIdentifier);
+          }
+        } else if (cachedMarker.icon.startsWith("http")) {
+          if (cachedMarker.iconDownloaded !== null) {
+            cachedMarker.reuseIdentifier = cachedMarker.icon;
+            return MGLAnnotationImage.annotationImageWithImageReuseIdentifier(cachedMarker.iconDownloaded, cachedMarker.reuseIdentifier);
+          }
+        } else {
+          console.log("Please use res://resourcename, http(s)://imageurl or iconPath to use a local path");
+        }
+      } else if (cachedMarker.iconPath) {
+        var appPath = fs.knownFolders.currentApp().path;
+        var iconFullPath = appPath + "/" + cachedMarker.iconPath;
+
+        if (fs.File.exists(iconFullPath)) {
+          var image = imgSrc.fromFile(iconFullPath).ios;
+          cachedMarker.reuseIdentifier = cachedMarker.iconPath;
+          return MGLAnnotationImage.annotationImageWithImageReuseIdentifier(image, cachedMarker.reuseIdentifier);
+        }
+      }
+    }
+
+    return null;
+  };
+
+  MGLMapViewDelegateImpl.prototype.mapViewAnnotationCalloutAccessoryControlTapped = function (mapView, annotation, control) {};
+
+  MGLMapViewDelegateImpl.prototype.mapViewDidSelectAnnotation = function (mapView, annotation) {
+    var cachedMarker = this.getTappedMarkerDetails(annotation);
+
+    if (cachedMarker && cachedMarker.onTap) {
+      cachedMarker.onTap(cachedMarker);
+    }
+  };
+
+  MGLMapViewDelegateImpl.prototype.mapViewTapOnCalloutForAnnotation = function (mapView, annotation) {
+    var cachedMarker = this.getTappedMarkerDetails(annotation);
+
+    if (cachedMarker && cachedMarker.onCalloutTap) {
+      cachedMarker.onCalloutTap(cachedMarker);
+    }
+  };
+
+  MGLMapViewDelegateImpl.prototype.getTappedMarkerDetails = function (tapped) {
+    for (var m in _markers) {
+      var cached = _markers[m];
+
+      if (cached.lat == tapped.coordinate.latitude && cached.lng == tapped.coordinate.longitude && cached.title == tapped.title && cached.subtitle == tapped.subtitle) {
+        return cached;
+      }
+    }
+  };
+
+  MGLMapViewDelegateImpl.ObjCProtocols = [MGLMapViewDelegate];
+  return MGLMapViewDelegateImpl;
+}(NSObject);
+
+var MapTapHandlerImpl = function (_super) {
+  __extends(MapTapHandlerImpl, _super);
+
+  function MapTapHandlerImpl() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MapTapHandlerImpl.initWithOwnerAndListenerForMap = function (owner, listener, mapView) {
+    var handler = MapTapHandlerImpl.new();
+    handler._owner = owner;
+    handler._listener = listener;
+    handler._mapView = mapView;
+    return handler;
+  };
+
+  MapTapHandlerImpl.prototype.tap = function (recognizer) {
+    var tapPoint = recognizer.locationInView(this._mapView);
+
+    var tapCoordinate = this._mapView.convertPointToCoordinateFromView(tapPoint, this._mapView);
+
+    this._listener({
+      lat: tapCoordinate.latitude,
+      lng: tapCoordinate.longitude
+    });
+  };
+
+  MapTapHandlerImpl.ObjCExposedMethods = {
+    "tap": {
+      returns: interop.types.void,
+      params: [interop.types.id]
+    }
+  };
+  return MapTapHandlerImpl;
+}(NSObject);
+
+var MapLongPressHandlerImpl = function (_super) {
+  __extends(MapLongPressHandlerImpl, _super);
+
+  function MapLongPressHandlerImpl() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MapLongPressHandlerImpl.initWithOwnerAndListenerForMap = function (owner, listener, mapView) {
+    var handler = MapLongPressHandlerImpl.new();
+    handler._owner = owner;
+    handler._listener = listener;
+    handler._mapView = mapView;
+    return handler;
+  };
+
+  MapLongPressHandlerImpl.prototype.longPress = function (recognizer) {
+    var longPressPoint = recognizer.locationInView(this._mapView);
+
+    var longPressCoordinate = this._mapView.convertPointToCoordinateFromView(longPressPoint, this._mapView);
+
+    this._listener({
+      lat: longPressCoordinate.latitude,
+      lng: longPressCoordinate.longitude
+    });
+  };
+
+  MapLongPressHandlerImpl.ObjCExposedMethods = {
+    "longPress": {
+      returns: interop.types.void,
+      params: [interop.types.id]
+    }
+  };
+  return MapLongPressHandlerImpl;
+}(NSObject);
+
+var MapPanHandlerImpl = function (_super) {
+  __extends(MapPanHandlerImpl, _super);
+
+  function MapPanHandlerImpl() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MapPanHandlerImpl.initWithOwnerAndListenerForMap = function (owner, listener, mapView) {
+    var handler = MapPanHandlerImpl.new();
+    handler._owner = owner;
+    handler._listener = listener;
+    handler._mapView = mapView;
+    return handler;
+  };
+
+  MapPanHandlerImpl.prototype.pan = function (recognizer) {
+    var panPoint = recognizer.locationInView(this._mapView);
+
+    var panCoordinate = this._mapView.convertPointToCoordinateFromView(panPoint, this._mapView);
+
+    this._listener({
+      lat: panCoordinate.latitude,
+      lng: panCoordinate.longitude
+    });
+  };
+
+  MapPanHandlerImpl.ObjCExposedMethods = {
+    "pan": {
+      returns: interop.types.void,
+      params: [interop.types.id]
+    }
+  };
+  return MapPanHandlerImpl;
+}(NSObject);
+
+var MapSwipeHandlerImpl = function (_super) {
+  __extends(MapSwipeHandlerImpl, _super);
+
+  function MapSwipeHandlerImpl() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MapSwipeHandlerImpl.initWithOwnerAndListenerForMap = function (owner, listener, mapView) {
+    var handler = MapSwipeHandlerImpl.new();
+    handler._owner = owner;
+    handler._listener = listener;
+    handler._mapView = mapView;
+    return handler;
+  };
+
+  MapSwipeHandlerImpl.prototype.swipe = function (recognizer) {
+    var swipePoint = recognizer.locationInView(this._mapView);
+
+    var swipeCoordinate = this._mapView.convertPointToCoordinateFromView(swipePoint, this._mapView);
+
+    this._listener({
+      lat: swipeCoordinate.latitude,
+      lng: swipeCoordinate.longitude
+    });
+  };
+
+  MapSwipeHandlerImpl.ObjCExposedMethods = {
+    "swipe": {
+      returns: interop.types.void,
+      params: [interop.types.id]
+    }
+  };
+  return MapSwipeHandlerImpl;
+}(NSObject);
+
+/***/ }),
+
+/***/ "../node_modules/tns-core-modules/trace/trace.js":
+/***/ (function(module, exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var enabled = false;
+var _categories = {};
+var _writers = [];
+var _eventListeners = [];
+
+var _errorHandler;
+
+function enable() {
+  enabled = true;
+}
+
+exports.enable = enable;
+
+function disable() {
+  enabled = false;
+}
+
+exports.disable = disable;
+
+function isEnabled() {
+  return enabled;
+}
+
+exports.isEnabled = isEnabled;
+
+function isCategorySet(category) {
+  return category in _categories;
+}
+
+exports.isCategorySet = isCategorySet;
+
+function addWriter(writer) {
+  _writers.push(writer);
+}
+
+exports.addWriter = addWriter;
+
+function removeWriter(writer) {
+  var index = _writers.indexOf(writer);
+
+  if (index >= 0) {
+    _writers.splice(index, 1);
+  }
+}
+
+exports.removeWriter = removeWriter;
+
+function clearWriters() {
+  if (_writers.length > 0) {
+    _writers.splice(0, _writers.length);
+  }
+}
+
+exports.clearWriters = clearWriters;
+
+function setCategories(categories) {
+  _categories = {};
+  addCategories(categories);
+}
+
+exports.setCategories = setCategories;
+
+function addCategories(categories) {
+  var split = categories.split(",");
+
+  for (var i = 0; i < split.length; i++) {
+    _categories[split[i].trim()] = true;
+  }
+}
+
+exports.addCategories = addCategories;
+
+function write(message, category, type) {
+  var i;
+
+  if (type === messageType.error) {
+    for (i = 0; i < _writers.length; i++) {
+      _writers[i].write(message, category, type);
+    }
+
+    return;
+  }
+
+  if (!enabled) {
+    return;
+  }
+
+  if (!(category in _categories)) {
+    return;
+  }
+
+  for (i = 0; i < _writers.length; i++) {
+    _writers[i].write(message, category, type);
+  }
+}
+
+exports.write = write;
+
+function notifyEvent(object, name, data) {
+  if (!enabled) {
+    return;
+  }
+
+  var i, listener, filters;
+
+  for (i = 0; i < _eventListeners.length; i++) {
+    listener = _eventListeners[i];
+
+    if (listener.filter) {
+      filters = listener.filter.split(",");
+      filters.forEach(function (value) {
+        if (value.trim() === name) {
+          listener.on(object, name, data);
+        }
+      });
+    } else {
+      listener.on(object, name, data);
+    }
+  }
+}
+
+exports.notifyEvent = notifyEvent;
+
+function addEventListener(listener) {
+  _eventListeners.push(listener);
+}
+
+exports.addEventListener = addEventListener;
+
+function removeEventListener(listener) {
+  var index = _eventListeners.indexOf(listener);
+
+  if (index >= 0) {
+    _eventListeners.splice(index, 1);
+  }
+}
+
+exports.removeEventListener = removeEventListener;
+var messageType;
+
+(function (messageType) {
+  messageType.log = 0;
+  messageType.info = 1;
+  messageType.warn = 2;
+  messageType.error = 3;
+})(messageType = exports.messageType || (exports.messageType = {}));
+
+var categories;
+
+(function (categories) {
+  categories.VisualTreeEvents = "VisualTreeEvents";
+  categories.Layout = "Layout";
+  categories.Style = "Style";
+  categories.ViewHierarchy = "ViewHierarchy";
+  categories.NativeLifecycle = "NativeLifecycle";
+  categories.Debug = "Debug";
+  categories.Navigation = "Navigation";
+  categories.Test = "Test";
+  categories.Binding = "Binding";
+  categories.BindingError = "BindingError";
+  categories.Error = "Error";
+  categories.Animation = "Animation";
+  categories.Transition = "Transition";
+  categories.All = categories.VisualTreeEvents + "," + categories.Layout + "," + categories.Style + "," + categories.ViewHierarchy + "," + categories.NativeLifecycle + "," + categories.Debug + "," + categories.Navigation + "," + categories.Test + "," + categories.Binding + "," + categories.Error + "," + categories.Animation + "," + categories.Transition;
+  categories.separator = ",";
+
+  function concat() {
+    var i;
+    var result;
+
+    for (i = 0; i < arguments.length; i++) {
+      if (!result) {
+        result = arguments[i];
+        continue;
+      }
+
+      result = result.concat(categories.separator, arguments[i]);
+    }
+
+    return result;
+  }
+
+  categories.concat = concat;
+})(categories = exports.categories || (exports.categories = {}));
+
+var ConsoleWriter = function () {
+  function ConsoleWriter() {}
+
+  ConsoleWriter.prototype.write = function (message, category, type) {
+    if (!console) {
+      return;
+    }
+
+    var msgType;
+
+    if (type === undefined) {
+      msgType = messageType.log;
+    } else {
+      msgType = type;
+    }
+
+    switch (msgType) {
+      case messageType.log:
+        console.log(category + ": " + message);
+        break;
+
+      case messageType.info:
+        console.info(category + ": " + message);
+        break;
+
+      case messageType.warn:
+        console.warn(category + ": " + message);
+        break;
+
+      case messageType.error:
+        console.error(category + ": " + message);
+        break;
+    }
+  };
+
+  return ConsoleWriter;
+}();
+
+addWriter(new ConsoleWriter());
+
+var DefaultErrorHandler = function () {
+  function DefaultErrorHandler() {}
+
+  DefaultErrorHandler.prototype.handlerError = function (error) {
+    throw error;
+  };
+
+  return DefaultErrorHandler;
+}();
+
+exports.DefaultErrorHandler = DefaultErrorHandler;
+setErrorHandler(new DefaultErrorHandler());
+
+function getErrorHandler() {
+  return _errorHandler;
+}
+
+exports.getErrorHandler = getErrorHandler;
+
+function setErrorHandler(handler) {
+  _errorHandler = handler;
+}
+
+exports.setErrorHandler = setErrorHandler;
+
+function error(error) {
+  if (!_errorHandler) {
+    return;
+  }
+
+  if (typeof error === "string") {
+    error = new Error(error);
+  }
+
+  _errorHandler.handlerError(error);
+}
+
+exports.error = error;
+
+/***/ }),
+
+/***/ "../node_modules/tns-core-modules/utils/types.js":
+/***/ (function(module, exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function isString(value) {
+  return typeof value === "string" || value instanceof String;
+}
+
+exports.isString = isString;
+
+function isNumber(value) {
+  return typeof value === "number" || value instanceof Number;
+}
+
+exports.isNumber = isNumber;
+
+function isBoolean(value) {
+  return typeof value === "boolean" || value instanceof Boolean;
+}
+
+exports.isBoolean = isBoolean;
+
+function isFunction(value) {
+  if (!value) {
+    return false;
+  }
+
+  return typeof value === "function";
+}
+
+exports.isFunction = isFunction;
+
+function isObject(value) {
+  if (!value) {
+    return false;
+  }
+
+  return typeof value === "object";
+}
+
+exports.isObject = isObject;
+
+function isUndefined(value) {
+  return value === undefined;
+}
+
+exports.isUndefined = isUndefined;
+
+function isDefined(value) {
+  return typeof value !== "undefined";
+}
+
+exports.isDefined = isDefined;
+
+function isNullOrUndefined(value) {
+  return value === undefined || value === null;
+}
+
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function verifyCallback(value) {
+  if (value && !isFunction(value)) {
+    throw new TypeError("Callback must be a valid function.");
+  }
+}
+
+exports.verifyCallback = verifyCallback;
+var classInfosMap = new Map();
+var funcNameRegex = /function ([_a-zA-Z0-9]{1,})\(/;
+
+function getClass(object) {
+  return getClassInfo(object).name;
+}
+
+exports.getClass = getClass;
+
+function getClassInfo(object) {
+  var constructor = object.constructor;
+  var result = classInfosMap.get(constructor);
+
+  if (!result) {
+    result = new ClassInfo(constructor);
+    classInfosMap.set(constructor, result);
+  }
+
+  return result;
+}
+
+exports.getClassInfo = getClassInfo;
+
+function getBaseClasses(object) {
+  var result = [];
+  var info = getClassInfo(object);
+
+  while (info) {
+    result.push(info.name);
+    info = info.baseClassInfo;
+  }
+
+  return result;
+}
+
+exports.getBaseClasses = getBaseClasses;
+
+var ClassInfo = function () {
+  function ClassInfo(typeCosntructor) {
+    this._typeCosntructor = typeCosntructor;
+  }
+
+  Object.defineProperty(ClassInfo.prototype, "name", {
+    get: function get() {
+      if (!this._name) {
+        var results = funcNameRegex.exec(this._typeCosntructor.toString());
+        this._name = results && results.length > 1 ? results[1] : "";
+      }
+
+      return this._name;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(ClassInfo.prototype, "baseClassInfo", {
+    get: function get() {
+      if (isUndefined(this._baseClassInfo)) {
+        this._baseClassInfo = ClassInfo._getBase(this);
+
+        if (this._baseClassInfo && this._baseClassInfo.name === this.name) {
+          this._baseClassInfo = ClassInfo._getBase(this._baseClassInfo);
+        }
+      }
+
+      return this._baseClassInfo;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  ClassInfo._getBase = function (info) {
+    var result = null;
+    var constructorProto = info._typeCosntructor.prototype;
+
+    if (constructorProto.__proto__) {
+      result = getClassInfo(constructorProto.__proto__);
+    }
+
+    return result;
+  };
+
+  return ClassInfo;
+}();
+
+exports.ClassInfo = ClassInfo;
+
+function toUIString(obj) {
+  return isNullOrUndefined(obj) ? "" : obj + "";
+}
+
+exports.toUIString = toUIString;
+
+/***/ }),
+
+/***/ "../node_modules/tns-core-modules/utils/utils-common.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var types = __webpack_require__("../node_modules/tns-core-modules/utils/types.js");
+
+exports.RESOURCE_PREFIX = "res://";
+exports.FILE_PREFIX = "file:///";
+
+function escapeRegexSymbols(source) {
+  var escapeRegex = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;
+  return source.replace(escapeRegex, "\\$&");
+}
+
+exports.escapeRegexSymbols = escapeRegexSymbols;
+
+function convertString(value) {
+  var result;
+
+  if (!types.isString(value)) {
+    result = value;
+  } else if (value.trim() === "") {
+    result = value;
+  } else {
+    var valueAsNumber = +value;
+
+    if (!isNaN(valueAsNumber)) {
+      result = valueAsNumber;
+    } else if (value && (value.toLowerCase() === "true" || value.toLowerCase() === "false")) {
+      result = value.toLowerCase() === "true" ? true : false;
+    } else {
+      result = value;
+    }
+  }
+
+  return result;
+}
+
+exports.convertString = convertString;
+var layout;
+
+(function (layout) {
+  var MODE_SHIFT = 30;
+  var MODE_MASK = 0x3 << MODE_SHIFT;
+  layout.UNSPECIFIED = 0 << MODE_SHIFT;
+  layout.EXACTLY = 1 << MODE_SHIFT;
+  layout.AT_MOST = 2 << MODE_SHIFT;
+  layout.MEASURED_HEIGHT_STATE_SHIFT = 0x00000010;
+  layout.MEASURED_STATE_TOO_SMALL = 0x01000000;
+  layout.MEASURED_STATE_MASK = 0xff000000;
+  layout.MEASURED_SIZE_MASK = 0x00ffffff;
+
+  function getMode(mode) {
+    switch (mode) {
+      case layout.EXACTLY:
+        return "Exact";
+
+      case layout.AT_MOST:
+        return "AtMost";
+
+      default:
+        return "Unspecified";
+    }
+  }
+
+  layout.getMode = getMode;
+
+  function getMeasureSpecMode(spec) {
+    return spec & MODE_MASK;
+  }
+
+  layout.getMeasureSpecMode = getMeasureSpecMode;
+
+  function getMeasureSpecSize(spec) {
+    return spec & ~MODE_MASK;
+  }
+
+  layout.getMeasureSpecSize = getMeasureSpecSize;
+
+  function measureSpecToString(measureSpec) {
+    var mode = getMeasureSpecMode(measureSpec);
+    var size = getMeasureSpecSize(measureSpec);
+    var text = "MeasureSpec: ";
+
+    if (mode === layout.UNSPECIFIED) {
+      text += "UNSPECIFIED ";
+    } else if (mode === layout.EXACTLY) {
+      text += "EXACTLY ";
+    } else if (mode === layout.AT_MOST) {
+      text += "AT_MOST ";
+    }
+
+    text += size;
+    return text;
+  }
+
+  layout.measureSpecToString = measureSpecToString;
+
+  function round(value) {
+    var res = Math.floor(value + 0.5);
+
+    if (res !== 0) {
+      return res;
+    } else if (value === 0) {
+      return 0;
+    } else if (value > 0) {
+      return 1;
+    }
+
+    return -1;
+  }
+
+  layout.round = round;
+})(layout = exports.layout || (exports.layout = {}));
+
+function isFileOrResourcePath(path) {
+  if (!types.isString(path)) {
+    return false;
+  }
+
+  return path.indexOf("~/") === 0 || path.indexOf("/") === 0 || path.indexOf(exports.RESOURCE_PREFIX) === 0;
+}
+
+exports.isFileOrResourcePath = isFileOrResourcePath;
+
+function isDataURI(uri) {
+  if (!types.isString(uri)) {
+    return false;
+  }
+
+  var firstSegment = uri.trim().split(",")[0];
+  return firstSegment && firstSegment.indexOf("data:") === 0 && firstSegment.indexOf("base64") >= 0;
+}
+
+exports.isDataURI = isDataURI;
+
+function mergeSort(arr, compareFunc) {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  var middle = arr.length / 2;
+  var left = arr.slice(0, middle);
+  var right = arr.slice(middle, arr.length);
+  return merge(mergeSort(left, compareFunc), mergeSort(right, compareFunc), compareFunc);
+}
+
+exports.mergeSort = mergeSort;
+
+function merge(left, right, compareFunc) {
+  var result = [];
+
+  while (left.length && right.length) {
+    if (compareFunc(left[0], right[0]) <= 0) {
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+
+  while (left.length) {
+    result.push(left.shift());
+  }
+
+  while (right.length) {
+    result.push(right.shift());
+  }
+
+  return result;
+}
+
+exports.merge = merge;
+
+function hasDuplicates(arr) {
+  return arr.length !== eliminateDuplicates(arr).length;
+}
+
+exports.hasDuplicates = hasDuplicates;
+
+function eliminateDuplicates(arr) {
+  return Array.from(new Set(arr));
+}
+
+exports.eliminateDuplicates = eliminateDuplicates;
+
+/***/ }),
+
+/***/ "../node_modules/tns-core-modules/utils/utils.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+function __export(m) {
+  for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var trace_1 = __webpack_require__("../node_modules/tns-core-modules/trace/trace.js");
+
+var utils_common_1 = __webpack_require__("../node_modules/tns-core-modules/utils/utils-common.js");
+
+__export(__webpack_require__("../node_modules/tns-core-modules/utils/utils-common.js"));
+
+var mainScreenScale;
+
+function isOrientationLandscape(orientation) {
+  return orientation === 3 || orientation === 4;
+}
+
+var layout;
+
+(function (layout) {
+  var MODE_SHIFT = 30;
+  var MODE_MASK = 0x3 << MODE_SHIFT;
+
+  function makeMeasureSpec(size, mode) {
+    return Math.round(Math.max(0, size)) & ~MODE_MASK | mode & MODE_MASK;
+  }
+
+  layout.makeMeasureSpec = makeMeasureSpec;
+
+  function getDisplayDensity() {
+    return mainScreenScale;
+  }
+
+  layout.getDisplayDensity = getDisplayDensity;
+
+  function toDevicePixels(value) {
+    return value * mainScreenScale;
+  }
+
+  layout.toDevicePixels = toDevicePixels;
+
+  function toDeviceIndependentPixels(value) {
+    return value / mainScreenScale;
+  }
+
+  layout.toDeviceIndependentPixels = toDeviceIndependentPixels;
+
+  function measureNativeView(nativeView, width, widthMode, height, heightMode) {
+    var view = nativeView;
+    var nativeSize = view.sizeThatFits({
+      width: widthMode === 0 ? Number.POSITIVE_INFINITY : toDeviceIndependentPixels(width),
+      height: heightMode === 0 ? Number.POSITIVE_INFINITY : toDeviceIndependentPixels(height)
+    });
+    nativeSize.width = utils_common_1.layout.round(toDevicePixels(nativeSize.width));
+    nativeSize.height = utils_common_1.layout.round(toDevicePixels(nativeSize.height));
+    return nativeSize;
+  }
+
+  layout.measureNativeView = measureNativeView;
+})(layout = exports.layout || (exports.layout = {}));
+
+var ios;
+
+(function (ios) {
+  function getter(_this, property) {
+    if (typeof property === "function") {
+      return property.call(_this);
+    } else {
+      return property;
+    }
+  }
+
+  ios.getter = getter;
+  var collections;
+
+  (function (collections) {
+    function jsArrayToNSArray(str) {
+      return NSArray.arrayWithArray(str);
+    }
+
+    collections.jsArrayToNSArray = jsArrayToNSArray;
+
+    function nsArrayToJSArray(a) {
+      var arr = [];
+
+      if (a !== undefined) {
+        var count = a.count;
+
+        for (var i = 0; i < count; i++) {
+          arr.push(a.objectAtIndex(i));
+        }
+      }
+
+      return arr;
+    }
+
+    collections.nsArrayToJSArray = nsArrayToJSArray;
+  })(collections = ios.collections || (ios.collections = {}));
+
+  function isLandscape() {
+    var device = getter(UIDevice, UIDevice.currentDevice);
+    var statusBarOrientation = getter(UIApplication, UIApplication.sharedApplication).statusBarOrientation;
+    var isStatusBarOrientationLandscape = isOrientationLandscape(statusBarOrientation);
+    return isOrientationLandscape(device.orientation) || isStatusBarOrientationLandscape;
+  }
+
+  ios.isLandscape = isLandscape;
+  ios.MajorVersion = NSString.stringWithString(getter(UIDevice, UIDevice.currentDevice).systemVersion).intValue;
+
+  function openFile(filePath) {
+    try {
+      var appPath = getCurrentAppPath();
+      var path = filePath.replace("~", appPath);
+      var controller = UIDocumentInteractionController.interactionControllerWithURL(NSURL.fileURLWithPath(path));
+      controller.delegate = new UIDocumentInteractionControllerDelegateImpl();
+      return controller.presentPreviewAnimated(true);
+    } catch (e) {
+      trace_1.write("Error in openFile", trace_1.categories.Error, trace_1.messageType.error);
+    }
+
+    return false;
+  }
+
+  ios.openFile = openFile;
+
+  function getCurrentAppPath() {
+    var currentDir = __dirname;
+    var tnsModulesIndex = currentDir.indexOf("/tns_modules");
+    var appPath = currentDir;
+
+    if (tnsModulesIndex !== -1) {
+      appPath = currentDir.substring(0, tnsModulesIndex);
+    }
+
+    return appPath;
+  }
+
+  ios.getCurrentAppPath = getCurrentAppPath;
+
+  function joinPaths() {
+    var paths = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      paths[_i] = arguments[_i];
+    }
+
+    if (!paths || paths.length === 0) {
+      return "";
+    }
+
+    return NSString.stringWithString(NSString.pathWithComponents(paths)).stringByStandardizingPath;
+  }
+
+  ios.joinPaths = joinPaths;
+
+  function getVisibleViewController(rootViewController) {
+    if (rootViewController.presentedViewController) {
+      return getVisibleViewController(rootViewController.presentedViewController);
+    }
+
+    if (rootViewController.isKindOfClass(UINavigationController.class())) {
+      return getVisibleViewController(rootViewController.visibleViewController);
+    }
+
+    if (rootViewController.isKindOfClass(UITabBarController.class())) {
+      return getVisibleViewController(rootViewController);
+    }
+
+    return rootViewController;
+  }
+
+  ios.getVisibleViewController = getVisibleViewController;
+})(ios = exports.ios || (exports.ios = {}));
+
+function GC() {
+  __collect();
+}
+
+exports.GC = GC;
+
+function releaseNativeObject(object) {
+  __releaseNativeCounterpart(object);
+}
+
+exports.releaseNativeObject = releaseNativeObject;
+
+function openUrl(location) {
+  try {
+    var url = NSURL.URLWithString(location.trim());
+
+    if (ios.getter(UIApplication, UIApplication.sharedApplication).canOpenURL(url)) {
+      return ios.getter(UIApplication, UIApplication.sharedApplication).openURL(url);
+    }
+  } catch (e) {
+    trace_1.write("Error in OpenURL", trace_1.categories.Error, trace_1.messageType.error);
+  }
+
+  return false;
+}
+
+exports.openUrl = openUrl;
+
+var UIDocumentInteractionControllerDelegateImpl = function (_super) {
+  __extends(UIDocumentInteractionControllerDelegateImpl, _super);
+
+  function UIDocumentInteractionControllerDelegateImpl() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  UIDocumentInteractionControllerDelegateImpl.prototype.getViewController = function () {
+    var app = ios.getter(UIApplication, UIApplication.sharedApplication);
+    return app.keyWindow.rootViewController;
+  };
+
+  UIDocumentInteractionControllerDelegateImpl.prototype.documentInteractionControllerViewControllerForPreview = function (controller) {
+    return this.getViewController();
+  };
+
+  UIDocumentInteractionControllerDelegateImpl.prototype.documentInteractionControllerViewForPreview = function (controller) {
+    return this.getViewController().view;
+  };
+
+  UIDocumentInteractionControllerDelegateImpl.prototype.documentInteractionControllerRectForPreview = function (controller) {
+    return this.getViewController().view.frame;
+  };
+
+  UIDocumentInteractionControllerDelegateImpl.ObjCProtocols = [UIDocumentInteractionControllerDelegate];
+  return UIDocumentInteractionControllerDelegateImpl;
+}(NSObject);
+
+mainScreenScale = ios.getter(UIScreen, UIScreen.mainScreen).scale;
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -251,6 +2850,1103 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "../node_modules/vuex/dist/vuex.esm.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapGetters", function() { return mapGetters; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
+/**
+ * vuex v3.1.0
+ * (c) 2019 Evan You
+ * @license MIT
+ */
+function applyMixin(Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({
+      beforeCreate: vuexInit
+    });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+
+    Vue.prototype._init = function (options) {
+      if (options === void 0) options = {};
+      options.init = options.init ? [vuexInit].concat(options.init) : vuexInit;
+
+      _init.call(this, options);
+    };
+  }
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+
+  function vuexInit() {
+    var options = this.$options; // store injection
+
+    if (options.store) {
+      this.$store = typeof options.store === 'function' ? options.store() : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var devtoolHook = typeof window !== 'undefined' && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin(store) {
+  if (!devtoolHook) {
+    return;
+  }
+
+  store._devtoolHook = devtoolHook;
+  devtoolHook.emit('vuex:init', store);
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  });
+}
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+
+/**
+ * forEach for object
+ */
+
+
+function forEachValue(obj, fn) {
+  Object.keys(obj).forEach(function (key) {
+    return fn(obj[key], key);
+  });
+}
+
+function isObject(obj) {
+  return obj !== null && typeof obj === 'object';
+}
+
+function isPromise(val) {
+  return val && typeof val.then === 'function';
+}
+
+function assert(condition, msg) {
+  if (!condition) {
+    throw new Error("[vuex] " + msg);
+  }
+} // Base data struct for store's module, package with some attribute and method
+
+
+var Module = function Module(rawModule, runtime) {
+  this.runtime = runtime; // Store some children item
+
+  this._children = Object.create(null); // Store the origin module object which passed by programmer
+
+  this._rawModule = rawModule;
+  var rawState = rawModule.state; // Store the origin module's state
+
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors = {
+  namespaced: {
+    configurable: true
+  }
+};
+
+prototypeAccessors.namespaced.get = function () {
+  return !!this._rawModule.namespaced;
+};
+
+Module.prototype.addChild = function addChild(key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild(key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild(key) {
+  return this._children[key];
+};
+
+Module.prototype.update = function update(rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild(fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter(fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction(fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation(fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties(Module.prototype, prototypeAccessors);
+
+var ModuleCollection = function ModuleCollection(rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get(path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key);
+  }, this.root);
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace(path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '');
+  }, '');
+};
+
+ModuleCollection.prototype.update = function update$1(rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register(path, rawModule, runtime) {
+  var this$1 = this;
+  if (runtime === void 0) runtime = true;
+
+  if (true) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  } // register nested modules
+
+
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister(path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  if (!parent.getChild(key).runtime) {
+    return;
+  }
+
+  parent.removeChild(key);
+};
+
+function update(path, targetModule, newModule) {
+  if (true) {
+    assertRawModule(path, newModule);
+  } // update target module
+
+
+  targetModule.update(newModule); // update nested modules
+
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if (true) {
+          console.warn("[vuex] trying to add a new module '" + key + "' on hot reloading, " + 'manual reload is needed');
+        }
+
+        return;
+      }
+
+      update(path.concat(key), targetModule.getChild(key), newModule.modules[key]);
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function assert(value) {
+    return typeof value === 'function';
+  },
+  expected: 'function'
+};
+var objectAssert = {
+  assert: function assert(value) {
+    return typeof value === 'function' || typeof value === 'object' && typeof value.handler === 'function';
+  },
+  expected: 'function or object with "handler" function'
+};
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule(path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) {
+      return;
+    }
+
+    var assertOptions = assertTypes[key];
+    forEachValue(rawModule[key], function (value, type) {
+      assert(assertOptions.assert(value), makeAssertionMessage(path, key, type, value, assertOptions.expected));
+    });
+  });
+}
+
+function makeAssertionMessage(path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+
+  if (path.length > 0) {
+    buf += " in module \"" + path.join('.') + "\"";
+  }
+
+  buf += " is " + JSON.stringify(value) + ".";
+  return buf;
+}
+
+var Vue; // bind on install
+
+var Store = function Store(options) {
+  var this$1 = this;
+  if (options === void 0) options = {}; // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if (true) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins;
+  if (plugins === void 0) plugins = [];
+  var strict = options.strict;
+  if (strict === void 0) strict = false; // store internal state
+
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue(); // bind commit and dispatch to self
+
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+
+  this.dispatch = function boundDispatch(type, payload) {
+    return dispatch.call(store, type, payload);
+  };
+
+  this.commit = function boundCommit(type, payload, options) {
+    return commit.call(store, type, payload, options);
+  }; // strict mode
+
+
+  this.strict = strict;
+  var state = this._modules.root.state; // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+
+  installModule(this, state, [], this._modules.root); // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+
+  resetStoreVM(this, state); // apply plugins
+
+  plugins.forEach(function (plugin) {
+    return plugin(this$1);
+  });
+  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+
+  if (useDevtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors$1 = {
+  state: {
+    configurable: true
+  }
+};
+
+prototypeAccessors$1.state.get = function () {
+  return this._vm._data.$$state;
+};
+
+prototypeAccessors$1.state.set = function (v) {
+  if (true) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit(_type, _payload, _options) {
+  var this$1 = this; // check object-style commit
+
+  var ref = unifyObjectStyle(_type, _payload, _options);
+  var type = ref.type;
+  var payload = ref.payload;
+  var options = ref.options;
+  var mutation = {
+    type: type,
+    payload: payload
+  };
+  var entry = this._mutations[type];
+
+  if (!entry) {
+    if (true) {
+      console.error("[vuex] unknown mutation type: " + type);
+    }
+
+    return;
+  }
+
+  this._withCommit(function () {
+    entry.forEach(function commitIterator(handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers.forEach(function (sub) {
+    return sub(mutation, this$1.state);
+  });
+
+  if ( true && options && options.silent) {
+    console.warn("[vuex] mutation type: " + type + ". Silent option has been removed. " + 'Use the filter functionality in the vue-devtools');
+  }
+};
+
+Store.prototype.dispatch = function dispatch(_type, _payload) {
+  var this$1 = this; // check object-style dispatch
+
+  var ref = unifyObjectStyle(_type, _payload);
+  var type = ref.type;
+  var payload = ref.payload;
+  var action = {
+    type: type,
+    payload: payload
+  };
+  var entry = this._actions[type];
+
+  if (!entry) {
+    if (true) {
+      console.error("[vuex] unknown action type: " + type);
+    }
+
+    return;
+  }
+
+  try {
+    this._actionSubscribers.filter(function (sub) {
+      return sub.before;
+    }).forEach(function (sub) {
+      return sub.before(action, this$1.state);
+    });
+  } catch (e) {
+    if (true) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1 ? Promise.all(entry.map(function (handler) {
+    return handler(payload);
+  })) : entry[0](payload);
+  return result.then(function (res) {
+    try {
+      this$1._actionSubscribers.filter(function (sub) {
+        return sub.after;
+      }).forEach(function (sub) {
+        return sub.after(action, this$1.state);
+      });
+    } catch (e) {
+      if (true) {
+        console.warn("[vuex] error in after action subscribers: ");
+        console.error(e);
+      }
+    }
+
+    return res;
+  });
+};
+
+Store.prototype.subscribe = function subscribe(fn) {
+  return genericSubscribe(fn, this._subscribers);
+};
+
+Store.prototype.subscribeAction = function subscribeAction(fn) {
+  var subs = typeof fn === 'function' ? {
+    before: fn
+  } : fn;
+  return genericSubscribe(subs, this._actionSubscribers);
+};
+
+Store.prototype.watch = function watch(getter, cb, options) {
+  var this$1 = this;
+
+  if (true) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+
+  return this._watcherVM.$watch(function () {
+    return getter(this$1.state, this$1.getters);
+  }, cb, options);
+};
+
+Store.prototype.replaceState = function replaceState(state) {
+  var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule(path, rawModule, options) {
+  if (options === void 0) options = {};
+
+  if (typeof path === 'string') {
+    path = [path];
+  }
+
+  if (true) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState); // reset store to update getters...
+
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule(path) {
+  var this$1 = this;
+
+  if (typeof path === 'string') {
+    path = [path];
+  }
+
+  if (true) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+
+  resetStore(this);
+};
+
+Store.prototype.hotUpdate = function hotUpdate(newOptions) {
+  this._modules.update(newOptions);
+
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit(fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties(Store.prototype, prototypeAccessors$1);
+
+function genericSubscribe(fn, subs) {
+  if (subs.indexOf(fn) < 0) {
+    subs.push(fn);
+  }
+
+  return function () {
+    var i = subs.indexOf(fn);
+
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  };
+}
+
+function resetStore(store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state; // init all modules
+
+  installModule(store, state, [], store._modules.root, true); // reset vm
+
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM(store, state, hot) {
+  var oldVm = store._vm; // bind store public getters
+
+  store.getters = {};
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    computed[key] = function () {
+      return fn(store);
+    };
+
+    Object.defineProperty(store.getters, key, {
+      get: function get() {
+        return store._vm[key];
+      },
+      enumerable: true // for local getters
+
+    });
+  }); // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent; // enable strict mode for new vm
+
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+
+    Vue.nextTick(function () {
+      return oldVm.$destroy();
+    });
+  }
+}
+
+function installModule(store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+
+  var namespace = store._modules.getNamespace(path); // register in namespace map
+
+
+  if (module.namespaced) {
+    store._modulesNamespaceMap[namespace] = module;
+  } // set state
+
+
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+
+    store._withCommit(function () {
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+
+
+function makeLocalContext(store, namespace, path) {
+  var noNamespace = namespace === '';
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+
+        if ( true && !store._actions[type]) {
+          console.error("[vuex] unknown local action type: " + args.type + ", global type: " + type);
+          return;
+        }
+      }
+
+      return store.dispatch(type, payload);
+    },
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+
+        if ( true && !store._mutations[type]) {
+          console.error("[vuex] unknown local mutation type: " + args.type + ", global type: " + type);
+          return;
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  }; // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace ? function () {
+        return store.getters;
+      } : function () {
+        return makeLocalGetters(store, namespace);
+      }
+    },
+    state: {
+      get: function get() {
+        return getNestedState(store.state, path);
+      }
+    }
+  });
+  return local;
+}
+
+function makeLocalGetters(store, namespace) {
+  var gettersProxy = {};
+  var splitPos = namespace.length;
+  Object.keys(store.getters).forEach(function (type) {
+    // skip if the target getter is not match this namespace
+    if (type.slice(0, splitPos) !== namespace) {
+      return;
+    } // extract local getter type
+
+
+    var localType = type.slice(splitPos); // Add a port to the getters proxy.
+    // Define as getter property because
+    // we do not want to evaluate the getters in this time.
+
+    Object.defineProperty(gettersProxy, localType, {
+      get: function get() {
+        return store.getters[type];
+      },
+      enumerable: true
+    });
+  });
+  return gettersProxy;
+}
+
+function registerMutation(store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler(payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction(store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler(payload, cb) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload, cb);
+
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+
+        throw err;
+      });
+    } else {
+      return res;
+    }
+  });
+}
+
+function registerGetter(store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if (true) {
+      console.error("[vuex] duplicate getter key: " + type);
+    }
+
+    return;
+  }
+
+  store._wrappedGetters[type] = function wrappedGetter(store) {
+    return rawGetter(local.state, // local state
+    local.getters, // local getters
+    store.state, // root state
+    store.getters // root getters
+    );
+  };
+}
+
+function enableStrictMode(store) {
+  store._vm.$watch(function () {
+    return this._data.$$state;
+  }, function () {
+    if (true) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, {
+    deep: true,
+    sync: true
+  });
+}
+
+function getNestedState(state, path) {
+  return path.length ? path.reduce(function (state, key) {
+    return state[key];
+  }, state) : state;
+}
+
+function unifyObjectStyle(type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if (true) {
+    assert(typeof type === 'string', "expects string as the type, but found " + typeof type + ".");
+  }
+
+  return {
+    type: type,
+    payload: payload,
+    options: options
+  };
+}
+
+function install(_Vue) {
+  if (Vue && _Vue === Vue) {
+    if (true) {
+      console.error('[vuex] already installed. Vue.use(Vuex) should be called only once.');
+    }
+
+    return;
+  }
+
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+
+
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState() {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+
+        if (!module) {
+          return;
+        }
+
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+
+      return typeof val === 'function' ? val.call(this, state, getters) : state[val];
+    }; // mark vuex getter for devtools
+
+
+    res[key].vuex = true;
+  });
+  return res;
+});
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) args[len] = arguments[len]; // Get the commit method from store
+
+
+      var commit = this.$store.commit;
+
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+
+        if (!module) {
+          return;
+        }
+
+        commit = module.context.commit;
+      }
+
+      return typeof val === 'function' ? val.apply(this, [commit].concat(args)) : commit.apply(this.$store, [val].concat(args));
+    };
+  });
+  return res;
+});
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val; // The namespace has been mutated by normalizeNamespace
+
+    val = namespace + val;
+
+    res[key] = function mappedGetter() {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return;
+      }
+
+      if ( true && !(val in this.$store.getters)) {
+        console.error("[vuex] unknown getter: " + val);
+        return;
+      }
+
+      return this.$store.getters[val];
+    }; // mark vuex getter for devtools
+
+
+    res[key].vuex = true;
+  });
+  return res;
+});
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) args[len] = arguments[len]; // get dispatch function from store
+
+
+      var dispatch = this.$store.dispatch;
+
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+
+        if (!module) {
+          return;
+        }
+
+        dispatch = module.context.dispatch;
+      }
+
+      return typeof val === 'function' ? val.apply(this, [dispatch].concat(args)) : dispatch.apply(this.$store, [val].concat(args));
+    };
+  });
+  return res;
+});
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+
+var createNamespacedHelpers = function createNamespacedHelpers(namespace) {
+  return {
+    mapState: mapState.bind(null, namespace),
+    mapGetters: mapGetters.bind(null, namespace),
+    mapMutations: mapMutations.bind(null, namespace),
+    mapActions: mapActions.bind(null, namespace)
+  };
+};
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+
+
+function normalizeMap(map) {
+  return Array.isArray(map) ? map.map(function (key) {
+    return {
+      key: key,
+      val: key
+    };
+  }) : Object.keys(map).map(function (key) {
+    return {
+      key: key,
+      val: map[key]
+    };
+  });
+}
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+
+
+function normalizeNamespace(fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+
+    return fn(namespace, map);
+  };
+}
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+
+
+function getModuleByNamespace(store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+
+  if ( true && !module) {
+    console.error("[vuex] module namespace not found in " + helper + "(): " + namespace);
+  }
+
+  return module;
+}
+
+var index_esm = {
+  Store: Store,
+  install: install,
+  version: '3.1.0',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers
+};
+/* harmony default export */ __webpack_exports__["default"] = (index_esm);
 
 
 /***/ })

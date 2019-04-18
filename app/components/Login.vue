@@ -2,7 +2,7 @@
     <Page class="Page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
         <StackLayout class="container">
             <Label text="Login" textWrap="true" class="header"/>
-            
+
             <FlexboxLayout alignItems="center" class="border-bottom">
               <TextField hint="Username" class="form-input" v-model="user.username"/>
             </FlexboxLayout>
@@ -24,13 +24,13 @@ const userService = {
 };
 
 import SearchArea from './SearchArea';
-  
+
   export default {
       data() {
           return {
             user: {
-              username:"foo",
-              password: "foo"
+              username:"",
+              password: ""
             }
           };
       },
